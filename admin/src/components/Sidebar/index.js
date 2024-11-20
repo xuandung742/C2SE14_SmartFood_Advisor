@@ -212,17 +212,6 @@ const Sidebar = () => {
                     Product Upload
                   </NavLink>
                 </li>
-
-                <li>
-                  <NavLink
-                    exact
-                    activeClassName="is-active"
-                    to="/productWEIGHT/add"
-                    onClick={() => context.setIsOpenNav(false)}
-                  >
-                    Add Weight
-                  </NavLink>
-                </li>
               </ul>
             </div>
           </li>

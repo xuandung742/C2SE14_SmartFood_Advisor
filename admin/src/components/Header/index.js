@@ -105,7 +105,7 @@ const Header = () => {
               </div>
             )}
 
-            <div className="col-sm-7 d-flex align-items-center justify-content-end part3">
+            <div className="col-sm-10 d-flex align-items-center justify-content-end part3">
               <Button className="rounded-circle mr-3" onClick={changeTheme}>
                 {context.theme === "light" ? (
                   <MdNightlightRound />

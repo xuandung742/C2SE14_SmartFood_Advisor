@@ -203,7 +203,7 @@ router.get(`/catId`, async (req, res) => {
       }
     }
 
-    if (req.query.location !== "All" && req.query.location!==undefined) {
+    if (req.query.location !== "All" && req.query.location !== undefined) {
       return res.status(200).json({
         products: productList,
         totalPages: totalPages,
@@ -218,7 +218,7 @@ router.get(`/catId`, async (req, res) => {
     }
 
 
-   
+
 
   }
 });
@@ -441,17 +441,34 @@ router.post(`/recentlyViewd`, async (req, res) => {
       brand: req.body.brand,
       price: req.body.price,
       oldPrice: req.body.oldPrice,
-      subCatId: req.body.subCatId,
+      // subCatId: req.body.subCatId,
       catName: req.body.catName,
-      subCat: req.body.subCat,
+      // subCat: req.body.subCat,
       category: req.body.category,
       countInStock: req.body.countInStock,
       rating: req.body.rating,
       isFeatured: req.body.isFeatured,
       discount: req.body.discount,
-      productRam: req.body.productRam,
-      size: req.body.size,
-      productWeight: req.body.productWeight,
+      // productRam: req.body.productRam,
+      // size: req.body.size,
+      // productWeight: req.body.productWeight,
+      nutritionalInfo: {
+        calories: req.body.nutritionalInfo.calories,
+        protein: req.body.nutritionalInfo.protein,
+        carbohydrates: req.body.nutritionalInfo.carbohydrates,
+        fat: req.body.nutritionalInfo.fat,
+        sugar: req.body.nutritionalInfo.sugar,
+        fiber: req.body.nutritionalInfo.fiber,
+        vitamins: req.body.nutritionalInfo.vitamins,
+        minerals: req.body.nutritionalInfo.minerals,
+      },
+      productType: req.body.productType,
+      recommendedAge: req.body.recommendedAge,
+      dietTypes: req.body.dietTypes,
+      healthConditionsSupported: req.body.healthConditionsSupported,
+      usageInstructions: req.body.usageInstructions,
+      allergens: req.body.allergens,
+
     });
 
     product = await product.save();
@@ -492,18 +509,27 @@ router.post(`/create`, async (req, res) => {
     oldPrice: req.body.oldPrice,
     catId: req.body.catId,
     catName: req.body.catName,
-    subCat: req.body.subCat,
-    subCatId: req.body.subCatId,
-    subCatName: req.body.subCatName,
     category: req.body.category,
     countInStock: req.body.countInStock,
     rating: req.body.rating,
     isFeatured: req.body.isFeatured,
     discount: req.body.discount,
-    productRam: req.body.productRam,
-    size: req.body.size,
-    productWeight: req.body.productWeight,
-    location: req.body.location !== "" ? req.body.location : "All",
+    nutritionalInfo: {
+      calories: req.body.nutritionalInfo.calories,
+      protein: req.body.nutritionalInfo.protein,
+      carbohydrates: req.body.nutritionalInfo.carbohydrates,
+      fat: req.body.nutritionalInfo.fat,
+      sugar: req.body.nutritionalInfo.sugar,
+      fiber: req.body.nutritionalInfo.fiber,
+      vitamins: req.body.nutritionalInfo.vitamins || [],
+      minerals: req.body.nutritionalInfo.minerals || [],
+    },
+    productType: req.body.productType || 'general_health',
+    recommendedAge: req.body.recommendedAge || 'adults',
+    dietTypes: req.body.dietTypes || [],
+    healthConditionsSupported: req.body.healthConditionsSupported || [],
+    usageInstructions: req.body.usageInstructions || '',
+    allergens: req.body.allergens || [],
   });
 
   product = await product.save();
@@ -520,17 +546,33 @@ router.post(`/create`, async (req, res) => {
   res.status(201).json(product);
 });
 
+// router.get("/:id", async (req, res) => {
+//   productEditId = req.params.id;
+
+//   const product = await Product.findById(req.params.id).populate("category");
+
+//   if (!product) {
+//     res
+//       .status(500)
+//       .json({ message: "Không tìm thấy sản phẩm với ID đã cho!" });
+//   }
+//   return res.status(200).send(product);
+// });
+
 router.get("/:id", async (req, res) => {
-  productEditId = req.params.id;
+  try {
+    const product = await Product.findById(req.params.id).populate("category");
 
-  const product = await Product.findById(req.params.id).populate("category");
+    if (!product) {
+      return res
+        .status(500)
+        .json({ message: "Không tìm thấy sản phẩm với ID đã cho!" });
+    }
 
-  if (!product) {
-    res
-      .status(500)
-      .json({ message: "Không tìm thấy sản phẩm với ID đã cho!" });
+    return res.status(200).send(product);
+  } catch (err) {
+    return res.status(500).json({ message: "Có lỗi xảy ra khi truy vấn sản phẩm!" });
   }
-  return res.status(200).send(product);
 });
 
 router.delete("/deleteImage", async (req, res) => {
@@ -545,7 +587,7 @@ router.delete("/deleteImage", async (req, res) => {
 
   const response = await cloudinary.uploader.destroy(
     imageName,
-    (error, result) => {}
+    (error, result) => { }
   );
 
   if (response) {
@@ -621,10 +663,27 @@ router.put("/:id", async (req, res) => {
       rating: req.body.rating,
       numReviews: req.body.numReviews,
       isFeatured: req.body.isFeatured,
-      productRam: req.body.productRam,
-      size: req.body.size,
-      productWeight: req.body.productWeight,
-      location: req.body.location,
+      // productRam: req.body.productRam,
+      // size: req.body.size,
+      // productWeight: req.body.productWeight,
+      // location: req.body.location,
+      nutritionalInfo: {
+        calories: req.body.nutritionalInfo.calories,
+        protein: req.body.nutritionalInfo.protein,
+        carbohydrates: req.body.nutritionalInfo.carbohydrates,
+        fat: req.body.nutritionalInfo.fat,
+        sugar: req.body.nutritionalInfo.sugar,
+        fiber: req.body.nutritionalInfo.fiber,
+        vitamins: req.body.nutritionalInfo.vitamins,
+        minerals: req.body.nutritionalInfo.minerals,
+      },
+      productType: req.body.productType,
+      recommendedAge: req.body.recommendedAge,
+      dietTypes: req.body.dietTypes,
+      healthConditionsSupported: req.body.healthConditionsSupported,
+      usageInstructions: req.body.usageInstructions,
+      allergens: req.body.allergens,
+
     },
     { new: true }
   );
@@ -643,244 +702,7 @@ router.put("/:id", async (req, res) => {
     status: true,
   });
 
-  //res.send(product);
 });
 
-// router.get(`/`, async (req, res) => {
-//   const page = parseInt(req.query.page) || 1;
-//   const perPage = parseInt(req.query.perPage);
-//   const totalPosts = await Product.countDocuments();
-//   const totalPages = Math.ceil(totalPosts / perPage);
-
-//   if (page > totalPages) {
-//     return res.status(404).json({ message: "Page not found" });
-//   }
-
-//   let productList = [];
-
-//   if (req.query.minPrice !== undefined && req.query.maxPrice !== undefined) {
-//     if (
-//       req.query.subCatId !== undefined &&
-//       req.query.subCatId !== null &&
-//       req.query.subCatId !== ""
-//     ) {
-//       if (
-//         req.query.location !== undefined &&
-//         req.query.location !== null &&
-//         req.query.location !== "All"
-//       ) {
-//         productList = await Product.find({
-//           subCatId: req.query.subCatId,
-//           location: req.query.location,
-//         })
-//           .populate("category")
-//           .skip((page - 1) * perPage)
-//           .limit(perPage)
-//           .exec();
-//       } else {
-//         productList = await Product.find({
-//           subCatId: req.query.subCatId,
-//         })
-//           .populate("category")
-//           .skip((page - 1) * perPage)
-//           .limit(perPage)
-//           .exec();
-//       }
-//     }
-
-//     if (
-//       req.query.catId !== undefined &&
-//       req.query.catId !== null &&
-//       req.query.catId !== ""
-//     ) {
-//       if (
-//         req.query.location !== undefined &&
-//         req.query.location !== null &&
-//         req.query.location !== "All"
-//       ) {
-//         productList = await Product.find({
-//           catId: req.query.catId,
-//           location: req.query.location,
-//         })
-//           .populate("category")
-//           .skip((page - 1) * perPage)
-//           .limit(perPage)
-//           .exec();
-//       } else {
-//         productList = await Product.find({ catId: req.query.catId })
-//           .populate("category")
-//           .skip((page - 1) * perPage)
-//           .limit(perPage)
-//           .exec();
-//       }
-//     }
-
-//     const filteredProducts = productList.filter((product) => {
-//       if (req.query.minPrice && product.price < parseInt(+req.query.minPrice)) {
-//         return false;
-//       }
-//       if (req.query.maxPrice && product.price > parseInt(+req.query.maxPrice)) {
-//         return false;
-//       }
-//       return true;
-//     });
-
-//     if (!productList) {
-//       res.status(500).json({ success: false });
-//     }
-//     return res.status(200).json({
-//       products: filteredProducts,
-//       totalPages: totalPages,
-//       page: page,
-//     });
-//   } else if (req.query.page !== undefined && req.query.perPage !== undefined) {
-//     if (
-//       req.query.location !== undefined &&
-//       req.query.location !== null &&
-//       req.query.location !== "All"
-//     ) {
-//       productList = await Product.find({ location: req.query.location })
-//         .populate("category")
-//         .skip((page - 1) * perPage)
-//         .limit(perPage)
-//         .exec();
-//     } else {
-//       productList = await Product.find()
-//         .populate("category")
-//         .skip((page - 1) * perPage)
-//         .limit(perPage)
-//         .exec();
-//     }
-
-//     if (!productList) {
-//       res.status(500).json({ success: false });
-//     }
-//     return res.status(200).json({
-//       products: productList,
-//       totalPages: totalPages,
-//       page: page,
-//     });
-//   } else {
-//     if (
-//       req.query.location !== undefined &&
-//       req.query.location !== null &&
-//       req.query.location !== "All"
-//     ) {
-//       productList = await Product.find(req.query)
-//         .populate("category")
-//         .skip((page - 1) * perPage)
-//         .limit(perPage)
-//         .exec();
-//     } else if (
-//       req.query.catId !== "" &&
-//       req.query.catId !== null &&
-//       req.query.catId !== undefined
-//     ) {
-//       productList = await Product.find({ catId: req.query.catId })
-//         .populate("category")
-//         .skip((page - 1) * perPage)
-//         .limit(perPage)
-//         .exec();
-//     } else if (
-//       req.query.catName !== "" &&
-//       req.query.catName !== null &&
-//       req.query.catName !== undefined
-//     ) {
-//       productList = await Product.find({ catName: req.query.catName })
-//         .populate("category")
-//         .skip((page - 1) * perPage)
-//         .limit(perPage)
-//         .exec();
-//     } else if (
-//       req.query.subCatId !== "" &&
-//       req.query.subCatId !== null &&
-//       req.query.subCatId !== undefined
-//     ) {
-//       productList = await Product.find({
-//         subCatId: req.query.subCatId,
-//       })
-//         .populate("category")
-//         .skip((page - 1) * perPage)
-//         .limit(perPage)
-//         .exec();
-//     }
-
-//     if (
-//       req.query.rating !== "" &&
-//       req.query.rating !== null &&
-//       req.query.rating !== undefined
-//     ) {
-//       if (
-//         req.query.catId !== "" &&
-//         req.query.catId !== null &&
-//         req.query.catId !== undefined
-//       ) {
-//         if (
-//           req.query.location !== undefined &&
-//           req.query.location !== null &&
-//           req.query.location !== "All"
-//         ) {
-//           productList = await Product.find({
-//             rating: req.query.rating,
-//             catId: req.query.catId,
-//             location: req.query.location,
-//           }).populate("category").skip((page - 1) * perPage)
-//           .limit(perPage)
-//           .exec();
-//         } else {
-//           productList = await Product.find({
-//             rating: req.query.rating,
-//             catId: req.query.catId,
-//           }).populate("category").skip((page - 1) * perPage)
-//           .limit(perPage)
-//           .exec();
-//         }
-//       }
-//     }
-
-//     if (
-//       req.query.rating !== "" &&
-//       req.query.rating !== null &&
-//       req.query.rating !== undefined
-//     ) {
-//       if (
-//         req.query.subCatId !== "" &&
-//         req.query.subCatId !== null &&
-//         req.query.subCatId !== undefined
-//       ) {
-//         if (
-//           req.query.location !== undefined &&
-//           req.query.location !== null &&
-//           req.query.location !== "All"
-//         ) {
-//           productList = await Product.find({
-//             rating: req.query.rating,
-//             subCatId: req.query.subCatId,
-//             location: req.query.location,
-//           }).populate("category").skip((page - 1) * perPage)
-//           .limit(perPage)
-//           .exec();
-//         } else {
-//           productList = await Product.find({
-//             rating: req.query.rating,
-//             subCatId: req.query.subCatId,
-//           }).populate("category").skip((page - 1) * perPage)
-//           .limit(perPage)
-//           .exec();
-//         }
-//       }
-//     }
-
-//     if (!productList) {
-//       res.status(500).json({ success: false });
-//     }
-
-//     return res.status(200).json({
-//       products: productList,
-//       totalPages: totalPages,
-//       page: page,
-//     });
-//   }
-// });
 
 module.exports = router;
