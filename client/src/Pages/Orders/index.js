@@ -63,15 +63,12 @@ const Orders = () => {
                             <thead className='thead-light'>
                                 <tr>
                                     <th>Mã đơn hàng</th>
-                                    <th>Mã thanh toán</th>
                                     <th>Sản phẩm</th>
                                     <th>Họ và tên</th>
                                     <th>Số điện thoại</th>
                                     <th>Địa chỉ</th>
-                                    {/* <th>Pincode</th> */}
                                     <th>Tổng tiền</th>
                                     <th>Email</th>
-                                    <th>Mã khách hàng</th>
                                     <th>Trạng thái đơn hàng</th>
                                     <th>Ngày</th>
                                 </tr>
@@ -84,16 +81,13 @@ const Orders = () => {
                                             <>
                                                 <tr key={index}>
                                                  <td><span className='text-blue fonmt-weight-bold'>{order?.id}</span></td>
-                                                    <td><span className='text-blue fonmt-weight-bold'>{order?.paymentId}</span></td>
-                                                    <td><span className='text-blue fonmt-weight-bold cursor' onClick={() => showProducts(order?._id)}>Click here to view</span>
+=                                                    <td><span className='text-blue fonmt-weight-bold cursor' onClick={() => showProducts(order?._id)}>Click here to view</span>
                                                     </td>
                                                     <td>{order?.name}</td>
                                                     <td>{order?.phoneNumber}</td>
                                                     <td>{order?.address}</td>
-                                                    {/* <td>{order?.pincode}</td> */}
                                                     <td>{order?.amount}</td>
                                                     <td>{order?.email}</td>
-                                                    <td>{order?.userid}</td>
                                                     <td>
                                                         {order?.status === "pending" ?
                                                             <span className='badge badge-danger'>{order?.status}</span> :

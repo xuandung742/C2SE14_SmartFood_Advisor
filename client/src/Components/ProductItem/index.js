@@ -115,6 +115,9 @@ const ProductItem = (props) => {
       });
     }
   };
+  const formatPrice = (price) => {
+    return price?.toLocaleString('vi-VN');
+  };
 
   return (
     <>
@@ -133,8 +136,8 @@ const ProductItem = (props) => {
         <div className="img_rapper">
           <Link
             to={`/product/${props?.itemView === "recentlyView"
-                ? props.item?.prodId
-                : props.item?.id
+              ? props.item?.prodId
+              : props.item?.id
               }`}
           >
             <div className="productItemSliderWrapper">
@@ -191,8 +194,8 @@ const ProductItem = (props) => {
         <div className="info" title={props?.item?.name}>
           <Link
             to={`/product/${props?.itemView === "recentlyView"
-                ? props.item?.prodId
-                : props.item?.id
+              ? props.item?.prodId
+              : props.item?.id
               }`}
           >
             <h4>{props?.item?.name?.substr(0, 20) + "..."}</h4>
@@ -214,11 +217,10 @@ const ProductItem = (props) => {
           />
 
           <div className="d-flex">
-            <span className="oldPrice">₫ {props?.item?.oldPrice}</span>
-            <span className="netPrice text-danger ml-2">
-              ₫ {props?.item?.price}
-            </span>
+            <span className="oldPrice" style={{fontSize:'17px'}}>₫ {formatPrice(props?.item?.oldPrice)}</span>
+            <span className="netPrice text-danger ml-2">₫ {formatPrice(props?.item?.price)}</span>
           </div>
+
         </div>
       </div>
 

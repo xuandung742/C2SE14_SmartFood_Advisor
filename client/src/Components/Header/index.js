@@ -4,7 +4,7 @@ import Logo from "../../assets/images/logo.jpg";
 import Button from "@mui/material/Button";
 import AIForm from "../AIForm";
 import { FiUser } from "react-icons/fi";
-import { IoBagOutline } from "react-icons/io5";
+import { IoBagCheckSharp, IoBagOutline } from "react-icons/io5";
 import SearchBox from "./SearchBox";
 import Navigation from "./Navigation";
 import { useContext } from "react";
@@ -14,7 +14,7 @@ import Avatar from "@mui/material/Avatar";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
-import { FaClipboardCheck } from "react-icons/fa";
+import { FaClipboardCheck, FaRegHeart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
 import { RiLogoutCircleRFill } from "react-icons/ri";
 import { FaUserAlt } from "react-icons/fa";
@@ -28,6 +28,7 @@ import { IoMdHeartEmpty } from "react-icons/io";
 import { FaRegUser } from "react-icons/fa6";
 import { CiFilter } from "react-icons/ci";
 import { IoBagCheckOutline } from "react-icons/io5";
+import { MdLogout, MdOutlineShoppingCart } from "react-icons/md";
 
 
 const Header = () => {
@@ -122,7 +123,7 @@ const Header = () => {
           <div className="top-strip bg-blue">
             <div className="container">
               <p className="mb-0 mt-0 text-center">
-              Giao hàng tận tay, miễn phí vận chuyển cho đơn hàng từ 50k!
+              Giao hàng tận tay, miễn phí vận chuyển cho mọi đơn hàng!
               </p>
             </div>
           </div>
@@ -145,7 +146,7 @@ const Header = () => {
                     <div className="position-relative cartTab">
                       <Link to="/cart" className="ml-auto">
                         <Button className="circle">
-                          <IoBagOutline />
+                          <MdOutlineShoppingCart />
                         </Button>
 
                         <span className="count d-flex align-items-center justify-content-center">
@@ -228,7 +229,7 @@ const Header = () => {
                           <Link to="/my-account">
                             <MenuItem onClick={handleClose}>
                               <ListItemIcon>
-                                <FaUserAlt fontSize="small" />
+                                <FaUserAlt />
                               </ListItemIcon>
                               Tài Khoản
                             </MenuItem>
@@ -236,22 +237,14 @@ const Header = () => {
                           <Link to="/orders">
                             <MenuItem onClick={handleClose}>
                               <ListItemIcon>
-                                <FaClipboardCheck fontSize="small" />
+                                <IoBagCheckSharp/>
                               </ListItemIcon>
                               Theo dõi đơn hàng
                             </MenuItem>
                           </Link>
-                          <Link to="/my-list">
-                            <MenuItem onClick={handleClose}>
-                              <ListItemIcon>
-                                <FaHeart fontSize="small" />
-                              </ListItemIcon>
-                              Danh sách yêu thích
-                            </MenuItem>
-                          </Link>
                           <MenuItem onClick={logout}>
                             <ListItemIcon>
-                              <RiLogoutCircleRFill fontSize="small" />
+                              <MdLogout />
                             </ListItemIcon>
                             Đăng Xuất
                           </MenuItem>
@@ -260,26 +253,17 @@ const Header = () => {
                     )}
 
                     <div className="ml-auto cartTab d-flex align-items-center">
-                      {context.windowWidth > 1000 && (
-                        <span className="price">
-                          {(context.cartData?.length !== 0
-                            ? context.cartData
-                                ?.map(
-                                  (item) => parseInt(item.price) * item.quantity
-                                )
-                                .reduce((total, value) => total + value, 0)
-                            : 0
-                          )?.toLocaleString("vi-VN", {
-                            style: "currency",
-                            currency: "VND",
-                          })}
-                        </span>
-                      )}
-
-                      <div className="position-relative ml-2 res-hide">
+                      <div className="position-relative ml-1 res-hide">
+                        <Link to="/my-list">
+                          <Button className="circle">
+                            <IoMdHeartEmpty />
+                          </Button>
+                        </Link>
+                      </div>
+                      <div className="position-relative ml-3 res-hide">
                         <Link to="/cart">
                           <Button className="circle">
-                            <IoBagOutline />
+                            <MdOutlineShoppingCart />
                           </Button>
                           <span className="count d-flex align-items-center justify-content-center">
                             {context.cartData?.length > 0
@@ -294,7 +278,7 @@ const Header = () => {
                           className="circle ml-3 toggleNav res-hide"
                           onClick={openNav}
                         >
-                          <IoMdMenu />
+                          <IoMdHeartEmpty />
                         </Button>
                       )}
                     </div>

@@ -176,7 +176,7 @@ const Cart = () => {
                                             <span className="ml-auto text-red font-weight-bold">
                                             {
                                                 (context.cartData?.length !== 0 ?
-                                                    context.cartData?.map(item => parseInt(item.price) * item.quantity).reduce((total, value) => total + value, 0) : 0)?.toLocaleString('en-US', { style: 'currency', currency: 'INR' })
+                                                    context.cartData?.map(item => parseInt(item.price) * item.quantity).reduce((total, value) => total + value, 0) : 0)?.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })
                                             }
                                             </span>
                                         </div>
@@ -185,11 +185,6 @@ const Cart = () => {
                                             <span>Vận Chuyển</span>
                                             <span className="ml-auto"><b>Miễn Phí</b></span>
                                         </div>
-
-                                        {/* <div className="d-flex align-items-center mb-3">
-                                            <span>Estimate for</span>
-                                            <span className="ml-auto"><b>United Kingdom</b></span>
-                                        </div> */}
 
                                         <div className="d-flex align-items-center">
                                             <span>Tổng cộng</span>
@@ -204,7 +199,7 @@ const Cart = () => {
 
                                         <br />
                                         <Link to="/checkout">
-                                            <Button className='btn-blue bg-red btn-lg btn-big'><IoBagCheckOutline /> &nbsp; Thanh Toán</Button>
+                                            <Button className='btn-blue bg-red btn-lg btn-big w-100'><IoBagCheckOutline /> &nbsp; Thanh Toán</Button>
                                         </Link>
 
                                     </div>

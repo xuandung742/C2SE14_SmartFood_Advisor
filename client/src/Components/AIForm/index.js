@@ -33,9 +33,8 @@ const AIForm = () => {
             </Button>
 
 
-            <Dialog open={isOpenModal} onClose={() => setisOpenModal(false)} className='locationModal' TransitionComponent={Transition}>
-                <h4 className='mb-0'>Choose your Delivery Location</h4>
-                <p>Enter your address and we will specify the offer for your area.</p>
+            <Dialog open={isOpenModal} onClose={() => setisOpenModal(false)} className='aiform' TransitionComponent={Transition}>
+                <h4 className='mb-0 flex-items-center'>Sản phẩm dành riêng cho bạn</h4>
                 <Button className='close_' onClick={() => setisOpenModal(false)}><MdClose /></Button>
 
             </Dialog>

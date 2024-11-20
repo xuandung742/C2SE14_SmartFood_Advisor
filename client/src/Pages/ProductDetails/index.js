@@ -54,8 +54,7 @@ const ProductDetails = () => {
       }
 
       fetchDataFromApi(
-        `/api/products/subCatId?subCatId=${
-          res?.subCatId
+        `/api/products/subCatId?subCatId=${res?.subCatId
         }&location=${localStorage.getItem("location")}`
       ).then((res) => {
         const filteredData = res?.products?.filter((item) => item.id !== id);
@@ -77,7 +76,7 @@ const ProductDetails = () => {
       }
     });
 
-    
+
     context.setEnableFilterTab(false);
   }, [id]);
 
@@ -111,31 +110,31 @@ const ProductDetails = () => {
       reviews.customerName = user?.name;
       reviews.customerId = user?.userId;
       reviews.productId = id;
-      
-      if(reviews.review!==""){
-      
-      setIsLoading(true);
 
-      postData("/api/productReviews/add", reviews).then((res) => {
-        setIsLoading(false);
+      if (reviews.review !== "") {
 
-        reviews.customerRating = 1;
+        setIsLoading(true);
 
-        setReviews({
-          review: "",
-          customerRating: 1,
+        postData("/api/productReviews/add", reviews).then((res) => {
+          setIsLoading(false);
+
+          reviews.customerRating = 1;
+
+          setReviews({
+            review: "",
+            customerRating: 1,
+          });
+
+          fetchDataFromApi(`/api/productReviews?productId=${id}`).then((res) => {
+            setreviewsData(res);
+          });
         });
-
-        fetchDataFromApi(`/api/productReviews?productId=${id}`).then((res) => {
-          setreviewsData(res);
+      } else {
+        context.setAlertBox({
+          open: true,
+          error: true,
+          msg: "Vui lòng nhập đánh giá sản phẩm",
         });
-      });
-      }else{
-      context.setAlertBox({
-        open: true,
-        error: true,
-        msg: "Vui lòng nhập đánh giá sản phẩm",
-      });
       }
 
     } else {
@@ -171,7 +170,7 @@ const ProductDetails = () => {
     }
   };
 
-  const selectedItem = () => {};
+  const selectedItem = () => { };
 
   const gotoReviews = () => {
     window.scrollTo({
@@ -223,6 +222,9 @@ const ProductDetails = () => {
         msg: "Vui lòng đăng nhập để tiếp tục",
       });
     }
+  };
+  const formatPrice = (price) => {
+    return price?.toLocaleString('vi-VN');
   };
 
   return (
@@ -276,10 +278,8 @@ const ProductDetails = () => {
                 </ul>
 
                 <div className="d-flex info mb-3">
-                  <span className="oldPrice">đ {productData?.oldPrice}</span>
-                  <span className="netPrice text-danger ml-2">
-                    đ {productData?.price}
-                  </span>
+                  <span className="oldPrice">đ {formatPrice(productData?.oldPrice)}</span>
+                  <span className="netPrice text-danger ml-2">đ {formatPrice(productData?.price)}</span>
                 </div>
 
                 {productData?.countInStock >= 1 ? (
@@ -289,74 +289,19 @@ const ProductDetails = () => {
                 )}
 
                 <p className="mt-3"> {productData?.description}</p>
-
-                {/* {productData?.productRam?.length !== 0 && (
-                  <div className="productSize d-flex align-items-center">
-                    <span>RAM:</span>
-                    <ul
-                      className={`list list-inline mb-0 pl-4 ${
-                        tabError === true && "error"
-                      }`}
-                    >
-                      {productData?.productRam?.map((item, index) => {
-                        return (
-                          <li className="list-inline-item">
-                            <a
-                              className={`tag ${
-                                activeSize === index ? "active" : ""
-                              }`}
-                              onClick={() => isActive(index)}
-                            >
-                              {item}
-                            </a>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  </div>
-                )} */}
-
-                {/* {productData?.size?.length !== 0 && (
-                  <div className="productSize d-flex align-items-center">
-                    <span>Size:</span>
-                    <ul
-                      className={`list list-inline mb-0 pl-4 ${
-                        tabError === true && "error"
-                      }`}
-                    >
-                      {productData?.size?.map((item, index) => {
-                        return (
-                          <li className="list-inline-item">
-                            <a
-                              className={`tag ${
-                                activeSize === index ? "active" : ""
-                              }`}
-                              onClick={() => isActive(index)}
-                            >
-                              {item}
-                            </a>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  </div>
-                )} */}
-
                 {productData?.productWeight?.length !== 0 && (
                   <div className="productSize d-flex align-items-center">
                     <span>Phân loại:</span>
                     <ul
-                      className={`list list-inline mb-0 pl-4 ${
-                        tabError === true && "error"
-                      }`}
+                      className={`list list-inline mb-0 pl-4 ${tabError === true && "error"
+                        }`}
                     >
                       {productData?.productWeight?.map((item, index) => {
                         return (
                           <li className="list-inline-item">
                             <a
-                              className={`tag ${
-                                activeSize === index ? "active" : ""
-                              }`}
+                              className={`tag ${activeSize === index ? "active" : ""
+                                }`}
                               onClick={() => isActive(index)}
                             >
                               {item}
@@ -387,11 +332,10 @@ const ProductDetails = () => {
                     </Button>
 
                     <Tooltip
-                      title={`${
-                        isAddedToMyList === true
-                          ? "Đã thêm vào yêu thích"
-                          : "Thêm vào yêu thích"
-                      }`}
+                      title={`${isAddedToMyList === true
+                        ? "Đã thêm vào yêu thích"
+                        : "Thêm vào yêu thích"
+                        }`}
                       placement="top"
                     >
                       <Button

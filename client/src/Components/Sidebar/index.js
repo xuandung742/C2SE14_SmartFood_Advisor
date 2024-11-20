@@ -77,7 +77,7 @@ const Sidebar = (props) => {
                     </>
                 }
 
-                <div className="filterBox">
+                {/* <div className="filterBox">
                     <h6>DANH MỤC</h6>
 
                     <div className='scroll'>
@@ -101,7 +101,7 @@ const Sidebar = (props) => {
                         </RadioGroup>
 
                     </div>
-                </div>
+                </div> */}
 
 
                 <div className="filterBox">

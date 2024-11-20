@@ -44,7 +44,7 @@ const SearchBox = (props) => {
   };
   return (
     <ClickAwayListener onClickAway={()=>setSearchData([])}>
-      <div className="headerSearch ml-3 mr-3">
+      <div className="headerSearch ml-4 mr-3">
         <input
           type="text"
           placeholder="Tìm kiếm ..."
@@ -69,7 +69,7 @@ const SearchBox = (props) => {
                         {item?.name.substr(0, 50) + "..."}
                       </h4>
                     </Link>
-                    <span>Rs. {item?.price}</span>
+                    <span>{item?.price}đ</span>
                   </div>
                 </div>
               );

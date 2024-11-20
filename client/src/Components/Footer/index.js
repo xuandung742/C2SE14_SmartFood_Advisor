@@ -32,7 +32,7 @@ const Footer = () => {
           <div className="topInfo row">
             <div className="col d-flex align-items-center">
               <span><AiOutlineShop  /></span>
-              <span className="ml-2">Sản phẩm tươi mới mỗi ngày</span>
+              <span className="ml-2">Sản phẩm tươi mới</span>
             </div>
             <div className="col d-flex align-items-center">
               <span><MdOutlineLocalShipping /></span>
@@ -44,7 +44,7 @@ const Footer = () => {
             </div>
             <div className="col d-flex align-items-center">
               <span><RiMoneyDollarCircleLine /></span>
-              <span className="ml-2">Giá tốt nhất trên thị trường</span>
+              <span className="ml-2">Giá tốt nhất thị trường</span>
             </div>
           </div>
           <div className="row mt-4 linksWrap">
@@ -80,7 +80,7 @@ const Footer = () => {
               <h5>Theo dõi chúng tôi</h5>
               <ul className="list list-inline mt-3 mb-0 socials">
                 <li className="list-inline-item">
-                  <Link to="#"><FaFacebookF /></Link>
+                  <Link to="https://fb.com/XD.l3f4"><FaFacebookF /></Link>
                 </li>
 
                 <li className="list-inline-item">

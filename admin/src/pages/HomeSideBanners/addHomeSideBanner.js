@@ -263,7 +263,7 @@ const AddBanner = () => {
     <>
       <div className="right-content w-100">
         <div className="card shadow border-0 w-100 flex-row p-4 mt-2">
-          <h5 className="mb-0">Thêm Home Side Banner</h5>
+          <h5 className="mb-0">Add Home Side Banner</h5>
           <Breadcrumbs aria-label="breadcrumb" className="ml-auto breadcrumbs_">
             <StyledBreadcrumb
               component="a"
@@ -292,7 +292,7 @@ const AddBanner = () => {
                 <div className="row">
                   <div className="col-md-12">
                     <div className="form-group">
-                      <h6>DANH MỤC</h6>
+                      <h6>CATEGORY</h6>
                       <Select
                         value={categoryVal}
                         onChange={handleChangeCategory}
@@ -301,7 +301,7 @@ const AddBanner = () => {
                         className="w-100"
                       >
                         <MenuItem value="">
-                          <em value={null}>Trống</em>
+                          <em value={null}>None</em>
                         </MenuItem>
                         {context.catData?.categoryList?.length !== 0 &&
                           context.catData?.categoryList?.map((cat, index) => {
@@ -322,7 +322,7 @@ const AddBanner = () => {
                 </div>
 
                 <div className="imagesUploadSec">
-                  <h5 className="mb-4">Hình ảnh minh họa</h5>
+                  <h5 className="mb-4">Image</h5>
 
                   <div className="imgUploadBox d-flex align-items-center">
                     {previews?.length !== 0 &&
@@ -351,7 +351,7 @@ const AddBanner = () => {
                       {uploading === true ? (
                         <div className="progressBar text-center d-flex align-items-center justify-content-center flex-column">
                           <CircularProgress />
-                          <span>Đang tải...</span>
+                          <span>Uploading...</span>
                         </div>
                       ) : (
                         <>
@@ -365,7 +365,7 @@ const AddBanner = () => {
                           />
                           <div className="info">
                             <FaRegImages />
-                            <h5>Tải ảnh lên</h5>
+                            <h5>Image Upload</h5>
                           </div>
                         </>
                       )}
@@ -382,7 +382,7 @@ const AddBanner = () => {
                     {isLoading === true ? (
                       <CircularProgress color="inherit" className="loader" />
                     ) : (
-                      "LƯU"
+                      "SAVE"
                     )}{" "}
                   </Button>
                 </div>

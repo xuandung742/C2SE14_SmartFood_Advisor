@@ -7,6 +7,7 @@ import { MyContext } from "../../App";
 import { fetchDataFromApi, postData, deleteData } from "../../utils/api";
 
 import { useNavigate } from "react-router-dom";
+import { Radio } from "@mui/material";
 
 const Checkout = () => {
   const [formFields, setFormFields] = useState({
@@ -14,19 +15,17 @@ const Checkout = () => {
     country: "",
     streetAddressLine1: "",
     streetAddressLine2: "",
-    // city: "",
-    // state: "",
-    // zipCode: "",
     phoneNumber: "",
     email: "",
   });
 
   const [cartData, setCartData] = useState([]);
   const [totalAmount, setTotalAmount] = useState();
+  const [paymentMethod, setPaymentMethod] = useState("");
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    
+
     context.setEnableFilterTab(false);
     const user = JSON.parse(localStorage.getItem("user"));
     fetchDataFromApi(`/api/cart?userId=${user?.userId}`).then((res) => {
@@ -34,9 +33,9 @@ const Checkout = () => {
 
       setTotalAmount(
         res.length !== 0 &&
-          res
-            .map((item) => parseInt(item.price) * item.quantity)
-            .reduce((total, value) => total + value, 0)
+        res
+          .map((item) => parseInt(item.price) * item.quantity)
+          .reduce((total, value) => total + value, 0)
       );
     });
   }, []);
@@ -102,30 +101,15 @@ const Checkout = () => {
       return false;
     }
 
-    // if (formFields.state === "") {
-    //   context.setAlertBox({
-    //     open: true,
-    //     error: true,
-    //     msg: "Please fill state ",
-    //   });
-    //   return false;
-    // }
-
-    // if (formFields.zipCode === "") {
-    //   context.setAlertBox({
-    //     open: true,
-    //     error: true,
-    //     msg: "Please fill zipCode ",
-    //   });
-    //   return false;
-    // }
+    if (paymentMethod) {
+      alert(`Bạn đã chọn phương thức thanh toán: ${paymentMethod === "cash" ? "Thanh toán khi nhận hàng" : "Thanh toán qua Momo"}`);
+    }
 
 
     const addressInfo = {
       name: formFields.fullName,
       phoneNumber: formFields.phoneNumber,
       address: formFields.streetAddressLine1 + formFields.streetAddressLine2,
-      // pincode: formFields.zipCode,
       date: new Date().toLocaleString("en-GB", {
         day: "2-digit",
         month: "2-digit",
@@ -134,59 +118,6 @@ const Checkout = () => {
     };
 
     // Thanh Toán
-    var options = {
-      key: process.env.REACT_APP_RAZORPAY_KEY_ID,
-      key_secret: process.env.REACT_APP_RAZORPAY_KEY_SECRET,
-      amount: parseInt(totalAmount * 100),
-      currency: "INR",
-      order_receipt: "order_rcptid_" + formFields.fullName,
-      name: "E-Bharat",
-      description: "for testing purpose",
-      handler: function (response) {
-        console.log(response);
-
-        const paymentId = response.razorpay_payment_id;
-
-        const user = JSON.parse(localStorage.getItem("user"));
-
-        const payLoad = {
-          name: addressInfo.name,
-          phoneNumber: formFields.phoneNumber,
-          address: addressInfo.address,
-          // pincode: addressInfo.pincode,
-          amount: parseInt(totalAmount),
-          paymentId: paymentId,
-          email: user.email,
-          userid: user.userId,
-          products: cartData,
-          date:addressInfo?.date
-        };
-
-        console.log(payLoad)
-          
-
-        postData(`/api/orders/create`, payLoad).then((res) => {
-             fetchDataFromApi(`/api/cart?userId=${user?.userId}`).then((res) => {
-            res?.length!==0 && res?.map((item)=>{
-                deleteData(`/api/cart/${item?.id}`).then((res) => {
-                })    
-            })
-                setTimeout(()=>{
-                    context.getCartData();
-                },1000);
-                history("/orders");
-          });
-         
-        });
-      },
-
-      theme: {
-        color: "#3399cc",
-      },
-    };
-
-    var pay = new window.Razorpay(options);
-    pay.open();
   };
 
   return (
@@ -312,10 +243,10 @@ const Checkout = () => {
                         <td>
                           {(cartData?.length !== 0
                             ? cartData
-                                ?.map(
-                                  (item) => parseInt(item.price) * item.quantity
-                                )
-                                .reduce((total, value) => total + value, 0)
+                              ?.map(
+                                (item) => parseInt(item.price) * item.quantity
+                              )
+                              .reduce((total, value) => total + value, 0)
                             : 0
                           )?.toLocaleString("vi-VN", {
                             style: "currency",
@@ -327,9 +258,29 @@ const Checkout = () => {
                   </table>
                 </div>
 
+                <div className="table-responsive mt-3">
+                  <h6>Phương thức thanh toán:</h6>
+                  <Radio
+                    checked={paymentMethod === "cash"}
+                    onChange={() => setPaymentMethod("cash")}
+                    value="cash"
+                    name="paymentMethod"
+                  />
+                  Thanh toán khi nhận hàng
+                </div>
+                <div>
+                  <Radio
+                    checked={paymentMethod === "momo"}
+                    onChange={() => setPaymentMethod("momo")}
+                    value="momo"
+                    name="paymentMethod"
+                  />
+                  Thanh toán qua Momo
+                </div>
+
                 <Button
                   type="submit"
-                  className="btn-blue bg-red btn-lg btn-big"
+                  className="btn-blue bg-red btn-lg btn-big mt-2"
                 >
                   <IoBagCheckOutline /> &nbsp; Thanh Toán
                 </Button>

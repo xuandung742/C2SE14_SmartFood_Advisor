@@ -19,7 +19,7 @@ body {
 }
 
 .bg-blue {
-  background: #6d4aae;
+  background: #377EFF;
 }
 
 button {
@@ -35,6 +35,7 @@ button {
   .container-xl {
     max-width: 1280px;
   }
+
 }
 
 .css-10nakn3-MuiModal-root-MuiPopover-root-MuiMenu-root {
@@ -76,7 +77,7 @@ button {
 }
 
 .btn-blue {
-  background: #6d4aae !important;
+  background: #377EFF !important;
   color: #fff !important;
   text-transform: capitalize !important;
   font-weight: 600 !important;
@@ -85,19 +86,19 @@ button {
 
 
 .bg-red {
-  background: #ed174a !important;
+  background: #FF424E !important;
 }
 
 .text-red {
-  color: #ed174a !important;
+  color: #FF424E !important;
 }
 
 .text-blue {
-  color: #53348c !important;
+  color: #377EFF !important;
 }
 
 .btn-blue:hover {
-  background: #53348c !important;
+  background: #377EFF !important;
 }
 
 .btn-big {
@@ -218,12 +219,13 @@ button {
 }
 
 .formAI {
-  width: 170px;
-  height: 50px;
+  width: 120px;
+  height: 40px;
   min-width: 170px;
-  color: #000 !important;
-  border: 2px solid rgba(0, 0, 0, 0.2) !important;
-  border-radius: 7px !important;
+  /* color: #377EFF !important;
+  border: 1px solid #377EFF !important; */
+  background-color: #377EFF !important;
+  border-radius: 5px !important;
   padding: 10px 15px !important;
 }
 
@@ -240,14 +242,14 @@ button {
   font-size: 14px !important;
   font-weight: 600;
   text-transform: uppercase !important;
-  color: rgba(0, 0, 0, 0.4) !important;
+  color: #fff !important;
   line-height: 16px;
 }
 
 .formAI .name {
   font-size: 14px !important;
   text-transform: capitalize !important;
-  color: #6d4aae !important;
+  color: #377EFF !important;
   font-weight: 700;
   line-height: 16px;
 }
@@ -267,25 +269,26 @@ button {
 .headerSearchWrapper {
   width: 58%;
   position: relative;
+  padding-left: 10px;
 }
 
 .headerSearch {
   width: 100%;
-  height: 50px;
-  background: #e5e5e5;
+  height: 40px;
+  background: #fff;
   padding: 5px;
   position: relative;
   border-radius: 5px;
-  border: 1px solid rgba(0, 0, 0, 0.050);
+  border: 1px solid rgba(0, 0, 0, 0.3);
 }
 
 .headerSearch input {
   background: transparent !important;
   outline: none !important;
-  font-size: 16px;
+  font-size: 15px;
   color: rgba(0, 0, 0, 0.7);
   width: 100%;
-  height: 37px;
+  height: 28px;
   border: 0px !important;
   padding: 0px 20px !important;
 }
@@ -296,20 +299,26 @@ button {
 
 .headerSearch button {
   position: absolute;
-  top: 5px;
-  right: 10px;
+  top: -1px;
+  right: -1px;
   z-index: 100;
   min-width: 40px !important;
   height: 40px !important;
   width: 40px !important;
-  border-radius: 50% !important;
+  border-radius: 0% 12% 12% 0% !important;
   color: #000;
+  border-left: 1px solid rgba(0, 0, 0, 0.3);
+  /* background-color: #377EFF; */
 }
 
-.headerSearch button svg,
+.headerSearch button svg {
+  font-size: 25px;
+  color: #377EFF !important;
+}
+
 header .part3 .circle svg {
   font-size: 25px;
-  opacity: 0.8;
+  opacity: .7;
   color: #000 !important;
 }
 
@@ -321,13 +330,14 @@ header .part3 .circle svg {
 
 .headerSearchWrapper .searchResults {
   position: absolute;
-  top: 100%;
+  top: 105%;
   left: 0px;
   width: 100%;
   background: #fff;
   z-index: 1000;
   max-height: 300px;
   overflow-y: scroll;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
 }
 
 .headerSearchWrapper .searchResults .result {
@@ -375,9 +385,9 @@ header .part3 .circle {
   height: 45px !important;
   width: 45px !important;
   border-radius: 50% !important;
-  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  border: 1px solid rgba(0, 0, 0, 0.2) !important;
   color: #000;
-  background: #ededed;
+  background: #fff;
 }
 
 header .part3 .circle svg {
@@ -408,7 +418,7 @@ header .part3 .circle svg {
 }
 
 #accDrop ul li svg {
-  font-size: 15px !important;
+  font-size: 18px !important;
 }
 
 
@@ -422,7 +432,7 @@ header .part3 .circle svg {
   border: 1px solid #0858f7;
   padding: 2px;
   border-radius: 100%;
-  background: #6d4aae !important;
+  background: #377EFF !important;
   color: #fff !important;
 }
 
@@ -461,18 +471,18 @@ header .part3 .circle svg {
 }
 
 .cartTab button {
-  background: #fff1ee !important;
+  background: #fff !important;
 }
 
 .cartTab button svg {
-  color: #ea2b0f !important;
+  color: #FF424E !important;
 }
 
 .cartTab .count {
   position: absolute;
   top: -6px;
   right: -4px;
-  background: #ea2b0f;
+  background: #FF424E;
   border-radius: 50%;
   color: #fff;
   width: 20px;
@@ -496,33 +506,34 @@ header .part3 .circle svg {
   font-size: 8px !important;
 }
 
-.locationModal .MuiPaper-elevation {
+.aiform .MuiPaper-elevation {
   padding: 25px;
   position: relative;
+  width: 500px;
 }
 
-.locationModal .MuiPaper-elevation h4 {
+.aiform .MuiPaper-elevation h4 {
   font-size: 18px;
   font-weight: 600;
 }
 
-.locationModal .MuiPaper-elevation p {
+.aiform .MuiPaper-elevation p {
   font-size: 13px;
 }
 
-.locationModal .countryList {
+/* .aiform .countryList {
   margin-bottom: 0px;
   max-height: 400px;
   overflow-y: scroll;
   overflow-x: hidden;
 }
 
-.locationModal .countryList li {
+.aiform .countryList li {
   width: 100%;
   list-style: none;
 }
 
-.locationModal .countryList li button {
+.aiform .countryList li button {
   width: 100%;
   text-transform: capitalize !important;
   color: #000 !important;
@@ -530,14 +541,14 @@ header .part3 .circle svg {
   padding: 10px 20px !important;
 }
 
-.locationModal .countryList li button:hover {
+.aiform .countryList li button:hover {
   background: #f1f1f1;
 }
 
-.locationModal .countryList li button.active {
-  background: #6d4aae !important;
+.aiform .countryList li button.active {
+  background: #377EFF !important;
   color: #fff !important;
-}
+} */
 
 .close_ {
   position: absolute !important;
@@ -614,11 +625,11 @@ nav .navPart1 .catWrapper .sidebarNav ul li button svg {
 
 nav .navPart1 .catWrapper .sidebarNav ul li button:hover {
   background: transparent !important;
-  color: #7a55c1 !important;
+  color: #FFA726 !important;
 }
 
 nav .navPart1 .catWrapper .sidebarNav ul li:hover button:first-child {
-  color: #7a55c1 !important;
+  color: #FFA726 !important;
 }
 
 nav .navPart1 .catWrapper .sidebarNav ul li {
@@ -653,11 +664,11 @@ nav .navPart1 .catWrapper .sidebarNav ul li:hover .submenu button {
 
 
 nav .navPart1 .catWrapper .sidebarNav ul li .submenu button:hover {
-  color: #7a55c1 !important;
+  color: #FFA726 !important;
 }
 
 nav .allCatTab {
-  background: #6d4aae;
+  background: #377EFF;
   padding: 7px 12px !important;
   border-radius: 30px !important;
 }
@@ -667,7 +678,7 @@ nav .allCatTab * {
 }
 
 nav .allCatTab:hover {
-  background: #7a55c1;
+  background: #FFA726;
 }
 
 nav .allCatTab .text {
@@ -725,7 +736,7 @@ nav .navPart2 ul li a svg {
 
 nav .navPart2 ul li a:hover {
   background: #f0faff;
-  color: #7a55c1;
+  color: #FFA726;
 }
 
 nav .navPart2 ul li {
@@ -936,7 +947,7 @@ nav .navPart2 ul li:hover .submenu {
 }
 
 .productItem .info h4:hover {
-  color: #ed174a !important;
+  color: #FF424E !important;
 }
 
 .productItem a:hover {
@@ -944,7 +955,7 @@ nav .navPart2 ul li:hover .submenu {
 }
 
 .info .oldPrice {
-  font-size: 16px !important;
+  font-size: 14px !important;
   font-weight: 600;
   color: rgba(0, 0, 0, 0.4);
   text-decoration: line-through;
@@ -955,7 +966,7 @@ nav .navPart2 ul li:hover .submenu {
 }
 
 .info .netPrice {
-  font-size: 16px !important;
+  font-size: 14px !important;
   font-weight: 600;
 }
 
@@ -999,8 +1010,8 @@ nav .navPart2 ul li:hover .submenu {
 }
 
 .productItem .actions button:hover {
-  background: #ed174a !important;
-  border: 1px solid #ed174a !important;
+  background: #FF424E !important;
+  border: 1px solid #FF424E !important;
 }
 
 .productItem .actions button:hover svg {
@@ -1009,8 +1020,8 @@ nav .navPart2 ul li:hover .submenu {
 }
 
 .productItem .actions button.active {
-  background: #ed174a !important;
-  border: 1px solid #ed174a !important;
+  background: #FF424E !important;
+  border: 1px solid #FF424E !important;
 }
 
 .productItem .actions button.active svg {
@@ -1146,6 +1157,7 @@ nav .navPart2 ul li:hover .submenu {
 .productItemSliderWrapper .productItemSlider {
   position: relative;
 }
+
 .text-success {
   font-size: 14px;
 }
@@ -1205,7 +1217,7 @@ nav .navPart2 ul li:hover .submenu {
 }
 
 .badge-primary {
-  background: #2bbef9 !important;
+  background: #377EFF !important;
 }
 
 
@@ -1327,7 +1339,7 @@ nav .navPart2 ul li:hover .submenu {
 .newsLetterSection {
   width: 100%;
   height: auto;
-  background-image: linear-gradient(to bottom right, #4a2888, #7a55c1);
+  background-image: linear-gradient(to bottom right, #4a2888, #FFA726);
   position: relative;
   overflow: hidden;
   padding: 60px 0px;
@@ -1391,7 +1403,7 @@ nav .navPart2 ul li:hover .submenu {
   position: absolute;
   top: 6px;
   right: 7px;
-  background: #6d4aae !important;
+  background: #377EFF !important;
   font-size: 14px !important;
   padding: 12px 25px !important;
   color: #fff !important;
@@ -1432,14 +1444,14 @@ footer .topInfo .col span {
   font-weight: 600;
 }
 
-
 footer .linksWrap h5 {
   font-size: 16px;
   margin-bottom: 20px;
   font-weight: bolder;
-  color: #7a55c1 !important;
+  color: #377EFF !important;
 }
-footer .linksWrap h5::after{
+
+footer .linksWrap h5::after {
   content: "";
   display: block;
   width: 70px;
@@ -1452,17 +1464,17 @@ footer .linksWrap ul li {
   list-style: none;
   margin-bottom: 10px;
   font-size: 13px;
-  color: #4e556e;
+  color: #000;
 }
 
 footer .linksWrap ul li a {
-  color: #4e556e;
+  color: #000;
   font-size: 13px;
 }
 
 footer .linksWrap ul li a:hover {
   text-decoration: underline;
-  color: #7a55c1;
+  color: #377EFF;
 }
 
 .socials li a {
@@ -1477,11 +1489,11 @@ footer .linksWrap ul li a:hover {
 
 .socials li a svg {
   font-size: 16px;
-  color: #7a55c1;
+  color: #377EFF;
 }
 
 .socials li a:hover {
-  background: #6d4aae !important;
+  background: #377EFF !important;
 }
 
 .socials li a:hover svg {
@@ -1493,7 +1505,7 @@ footer .linksWrap ul li a:hover {
 }
 
 .productModal .actions button svg.text-danger {
-  color: #ed174a !important;
+  color: #FF424E !important;
   opacity: 1 !important;
 }
 
@@ -1718,7 +1730,7 @@ footer .linksWrap ul li a:hover {
 
 .css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root.Mui-checked,
 .css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root.MuiCheckbox-indeterminate {
-  color: #6d4aae !important;
+  color: #377EFF !important;
 }
 
 .range-slider {
@@ -1727,7 +1739,7 @@ footer .linksWrap ul li a:hover {
 
 .range-slider .range-slider__thumb,
 .range-slider .range-slider__range {
-  background: #6d4aae !important;
+  background: #377EFF !important;
 }
 
 .range-slider .range-slider__thumb {
@@ -1850,12 +1862,12 @@ footer .linksWrap ul li a:hover {
   font-size: 18px !important;
 }
 
-.productDetails .oldPrice {
-  font-size: 20px;
+.productDetails .info .oldPrice {
+  font-size: 20px !important;
 }
 
-.productDetails .netPrice {
-  font-size: 22px;
+.productDetails .info .netPrice {
+  font-size: 22px !important;
 }
 
 .reviewBox {
@@ -1891,7 +1903,7 @@ footer .linksWrap ul li a:hover {
 }
 
 .productSize ul li a.active {
-  background: #6d4aae !important;
+  background: #377EFF !important;
   color: #fff !important;
 }
 
@@ -1923,14 +1935,14 @@ footer .linksWrap ul li a:hover {
 }
 
 .productDetails .btn-circle svg.text-danger {
-  color: #ed174a !important;
+  color: #FF424E !important;
   opacity: 1 !important;
 }
 
 
 .detailsPageTabs {
   border-radius: 25px !important;
-  background: #f7f2ff;
+  background: #F4F8FE;
 }
 
 .customTabs ul li {
@@ -1947,8 +1959,9 @@ footer .linksWrap ul li a:hover {
 }
 
 .customTabs ul li button.active {
-  background: #6d4aae !important;
+  background: #377EFF !important;
   color: #fff !important;
+  border: none !important;
 }
 
 .reviewsCard {
@@ -2088,7 +2101,7 @@ a:hover {
 }
 
 .cartItemimgWrapper .info h6:hover {
-  color: #ed174a !important;
+  color: #FF424E !important;
 }
 
 .remove {
@@ -2100,7 +2113,7 @@ a:hover {
 }
 
 .remove:hover svg {
-  color: #ed174a !important;
+  color: #FF424E !important;
 }
 
 .cartPage .quantityDrop button {
@@ -2440,7 +2453,7 @@ input[type=number]::-webkit-outer-spin-button {
   height: 40px !important;
   min-width: 40px !important;
   border-radius: 100% !important;
-  background: #6d4aae !important;
+  background: #377EFF !important;
   position: fixed !important;
   bottom: 0%;
   right: 1%;
