@@ -220,7 +220,7 @@ const MyAccount = () => {
                 context.setAlertBox({
                   open: true,
                   error: false,
-                  msg: "Images Uploaded!",
+                  msg: "Đã tải hình ảnh!",
                 });
                 setUploading(false);
               }, 200);
@@ -289,7 +289,7 @@ const MyAccount = () => {
         context.setAlertBox({
           open: true,
           error: true,
-          msg: "Mật khẩu và không khớp.",
+          msg: "Mật khẩu không khớp.",
         });
       } else {
         const user = JSON.parse(localStorage.getItem("user"));

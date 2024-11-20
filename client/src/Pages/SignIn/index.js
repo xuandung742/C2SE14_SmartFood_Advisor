@@ -110,7 +110,6 @@ const SignIn = () => {
       .then((result) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
-        // The signed-in user info.
         const user = result.user;
 
         const fields={
@@ -213,7 +212,7 @@ const SignIn = () => {
           </div>
 
           <form className="mt-3" onSubmit={login}>
-            <h2 className="mb-4">Sign In</h2>
+            <h2 className="mb-4">Đăng Nhập</h2>
 
             <div className="form-group">
               <TextField

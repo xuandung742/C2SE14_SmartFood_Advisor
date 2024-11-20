@@ -122,17 +122,6 @@ const Listing = () => {
       top: 0,
       behavior: "smooth",
     });
-    //setFilterId(subCatId);
-    //setisLoading(true);
-
-    // fetchDataFromApi(
-    //   `/api/products/subCatId?subCatId=${subCatId}&location=${localStorage.getItem(
-    //     "location"
-    //   )}`
-    // ).then((res) => {
-    //   setProductData(res);
-    //   setisLoading(false);
-    // });
 
     history(`/products/subCat/${subCatId}`);
   };
