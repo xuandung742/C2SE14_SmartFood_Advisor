@@ -35,18 +35,18 @@ const productSchema = mongoose.Schema({
         type: String,
         default: ''
     },
-    // subCatId: {
-    //     type: String,
-    //     default: ''
-    // },
-    // subCat: {
-    //     type: String,
-    //     default: ''
-    // },
-    // subCatName: {
-    //     type: String,
-    //     default: ''
-    // },
+    subCatId: {
+        type: String,
+        default: ''
+    },
+    subCat: {
+        type: String,
+        default: ''
+    },
+    subCatName: {
+        type: String,
+        default: ''
+    },
     category: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Category',
@@ -68,35 +68,34 @@ const productSchema = mongoose.Schema({
         type: Number,
         required: true,
     },
-    // productRam: [
-    //     {
-    //         type: String,
-    //         default: null,
-    //     }
-    // ],
-    // size: [
-    //     {
-    //         type: String,
-    //         default: null,
-    //     }
-    // ],
-    // productWeight: [
-    //     {
-    //         type: String,
-    //         default: null,
-    //     }
-    // ],
-    // location: [
-    //     {
-    //         value: {
-    //             type: String,
-    //         },
-    //         label: {
-    //             type: String,
-    //         }
-    //     },
-    // ],
-
+    productRam: [
+        {
+            type: String,
+            default: null,
+        }
+    ],
+    size: [
+        {
+            type: String,
+            default: null,
+        }
+    ],
+    productWeight: [
+        {
+            type: String,
+            default: null,
+        }
+    ],
+    location: [
+        {
+            value: {
+                type: String,
+            },
+            label: {
+                type: String,
+            }
+        },
+    ],
     // Dinh dưỡng
     nutritionalInfo: {
         calories:
@@ -187,6 +186,10 @@ const productSchema = mongoose.Schema({
         default: []
     },
 
+    dateCreated: {
+        type: Date,
+        default: Date.now,
+    },
     dateCreated: {
         type: Date,
         default: Date.now,
