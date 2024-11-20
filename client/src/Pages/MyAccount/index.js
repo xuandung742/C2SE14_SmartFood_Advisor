@@ -289,7 +289,7 @@ const MyAccount = () => {
         context.setAlertBox({
           open: true,
           error: true,
-          msg: "Mật khẩu và xác nhận mật khẩu không khớp.",
+          msg: "Mật khẩu và không khớp.",
         });
       } else {
         const user = JSON.parse(localStorage.getItem("user"));
@@ -313,7 +313,7 @@ const MyAccount = () => {
       context.setAlertBox({
         open: true,
         error: true,
-        msg: "Please fill all the details",
+        msg: "Vui lòng điền đầy đủ thông tin",
       });
       return false;
     }
