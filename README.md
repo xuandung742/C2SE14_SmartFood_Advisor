@@ -10,3 +10,5 @@ B2: npm start để run code
 - client
 B1: npm i để install các gói
 B2: npm start để run code
+
+- database: smartfood
