@@ -2,11 +2,9 @@ import React, { useContext, useState } from 'react';
 import Button from '@mui/material/Button';
 import { FaAngleDown } from "react-icons/fa6";
 import Dialog from '@mui/material/Dialog';
-import { IoIosSearch } from "react-icons/io";
 import { MdClose } from "react-icons/md";
 import Slide from '@mui/material/Slide';
-import { MyContext } from '../../App';
-import { TextField, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, InputAdornment, MenuItem, Select, Checkbox, FormGroup } from '@mui/material';
+import { TextField, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, MenuItem, FormGroup, Checkbox } from '@mui/material';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -22,12 +20,9 @@ const AIForm = () => {
         height: "",
         goal: "",
         diet: "",
-        mealsPerDay: "",
         healthConditions: [],
         allergies: [],
         activityLevel: "",
-        energyLevel: "",
-        fatigue: "",
         additionalInfo: "",
     });
 
@@ -67,7 +62,6 @@ const AIForm = () => {
                     <h4 className='mb-0 flex-items-center'>Sản phẩm dành riêng cho bạn</h4>
                     <Button className='close_' onClick={() => setisOpenModal(false)}><MdClose /></Button>
                     <form onSubmit={handleSubmit}>
-                        {/* Name */}
                         <TextField
                             label="Họ và tên"
                             name="name"
@@ -76,9 +70,9 @@ const AIForm = () => {
                             fullWidth
                             required
                             margin="normal"
+                            autoFocus
                         />
 
-                        {/* Age */}
                         <TextField
                             label="Tuổi"
                             name="age"
@@ -90,13 +84,13 @@ const AIForm = () => {
                             type="number"
                         />
 
-                        {/* Gender */}
                         <FormControl component="fieldset" margin="normal">
                             <FormLabel component="legend">Giới tính</FormLabel>
                             <RadioGroup
                                 name="gender"
                                 value={formData.gender}
                                 onChange={handleInputChange}
+                                className='ml-2'
                             >
                                 <FormControlLabel value="male" control={<Radio />} label="Nam" />
                                 <FormControlLabel value="female" control={<Radio />} label="Nữ" />
@@ -104,7 +98,6 @@ const AIForm = () => {
                             </RadioGroup>
                         </FormControl>
 
-                        {/* Weight and Height */}
                         <TextField
                             label="Cân nặng (kg)"
                             name="weight"
@@ -114,9 +107,6 @@ const AIForm = () => {
                             required
                             margin="normal"
                             type="number"
-                            InputProps={{
-                                startAdornment: <InputAdornment position="start">kg</InputAdornment>,
-                            }}
                         />
 
                         <TextField
@@ -128,12 +118,8 @@ const AIForm = () => {
                             required
                             margin="normal"
                             type="number"
-                            InputProps={{
-                                startAdornment: <InputAdornment position="start">cm</InputAdornment>,
-                            }}
                         />
 
-                        {/* Goal */}
                         <TextField
                             select
                             label="Mục tiêu dinh dưỡng"
@@ -152,7 +138,6 @@ const AIForm = () => {
                             <MenuItem value="digestive_support">Hỗ trợ tiêu hóa</MenuItem>
                         </TextField>
 
-                        {/* Diet */}
                         <TextField
                             select
                             label="Chế độ ăn uống"
@@ -170,20 +155,7 @@ const AIForm = () => {
                             <MenuItem value="no_sugar">Không đường</MenuItem>
                         </TextField>
 
-                        {/* Meals per day */}
-                        <TextField
-                            label="Số bữa ăn mỗi ngày"
-                            name="mealsPerDay"
-                            value={formData.mealsPerDay}
-                            onChange={handleInputChange}
-                            fullWidth
-                            required
-                            margin="normal"
-                            type="number"
-                        />
-
-                        {/* Health conditions */}
-                        <FormGroup row>
+                        <FormGroup row className='ml-3 mt-2 mb-2'>
                             <FormControlLabel
                                 control={
                                     <Checkbox
@@ -219,8 +191,7 @@ const AIForm = () => {
                             />
                         </FormGroup>
 
-                        {/* Allergies */}
-                        <FormGroup row>
+                        <FormGroup row className='ml-3 mt-2'>
                             <FormControlLabel
                                 control={
                                     <Checkbox
@@ -256,7 +227,6 @@ const AIForm = () => {
                             />
                         </FormGroup>
 
-                        {/* Activity level */}
                         <TextField
                             select
                             label="Mức độ hoạt động"
@@ -273,39 +243,6 @@ const AIForm = () => {
                             <MenuItem value="very_active">Vận động viên</MenuItem>
                         </TextField>
 
-                        {/* Energy level */}
-                        <TextField
-                            select
-                            label="Mức năng lượng"
-                            name="energyLevel"
-                            value={formData.energyLevel}
-                            onChange={handleInputChange}
-                            fullWidth
-                            required
-                            margin="normal"
-                        >
-                            <MenuItem value="high">Cao</MenuItem>
-                            <MenuItem value="normal">Bình thường</MenuItem>
-                            <MenuItem value="low">Thấp</MenuItem>
-                        </TextField>
-
-                        {/* Fatigue */}
-                        <TextField
-                            select
-                            label="Cảm giác mệt mỏi"
-                            name="fatigue"
-                            value={formData.fatigue}
-                            onChange={handleInputChange}
-                            fullWidth
-                            required
-                            margin="normal"
-                        >
-                            <MenuItem value="never">Không bao giờ</MenuItem>
-                            <MenuItem value="sometimes">Thỉnh thoảng</MenuItem>
-                            <MenuItem value="often">Thường xuyên</MenuItem>
-                        </TextField>
-
-                        {/* Additional information */}
                         <TextField
                             label="Thông tin bổ sung"
                             name="additionalInfo"
@@ -313,12 +250,13 @@ const AIForm = () => {
                             onChange={handleInputChange}
                             fullWidth
                             multiline
-                            rows={4}
+                            rows={3}
                             margin="normal"
+                            placeholder="Nhập thêm thông tin bạn muốn chúng tôi lưu ý (nếu có)"
                         />
 
-                        {/* Submit Button */}
-                        <Button variant="contained" color="primary" type="submit" fullWidth>
+
+                        <Button variant="contained" type="submit" className='btn-blue bg-red btn-lg btn-big w-100 mt-2'>
                             Gửi
                         </Button>
                     </form>

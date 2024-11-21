@@ -30,6 +30,7 @@ const searchRoutes = require('./routes/search.js');
 const bannersSchema = require('./routes/banners.js');
 const homeSideBannerSchema = require('./routes/homeSideBanner.js');
 const homeBottomBannerSchema = require('./routes/homeBottomBanner.js');
+const healthForm = require('./routes/healthform.js');
 
 app.use("/api/user",userRoutes);
 app.use("/uploads",express.static("uploads"));
@@ -48,6 +49,7 @@ app.use(`/api/search`, searchRoutes);
 app.use(`/api/banners`, bannersSchema);
 app.use(`/api/homeSideBanners`, homeSideBannerSchema);
 app.use(`/api/homeBottomBanners`, homeBottomBannerSchema);
+app.use(`/api/healthForm`,healthForm);
 
 
 
