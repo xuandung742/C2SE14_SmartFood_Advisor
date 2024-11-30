@@ -96,99 +96,29 @@ const productSchema = mongoose.Schema({
             }
         },
     ],
-    // Dinh dưỡng
-    nutritionalInfo: {
-        calories:
-        {
-            type: Number,
-            required: false,
-            default: ''
-        },
-        protein:
-        {
-            type: Number,
-            required: false,
-            default: ''
-        },
-        carbohydrates:
-        {
-            type: Number,
-            required: false,
-            default: ''
-        },
-        fat:
-        {
-            type: Number,
-            required: false,
-            default: ''
-        },
-        sugar: {
-            type: Number,
-            required: false,
-            default: ''
-        },
-        fiber:
-        {
-            type: Number,
-            required: false,
-            default: ''
-        },
-        vitamins:
-        {
-            type: [String],
-            required: false
-        },
-        minerals:
-        {
-            type: [String],
-            required: false
-        },
-    },
-
-    // Loại sản phẩm
-    productType: {
+    ingredient: {
         type: String,
-        enum: ['weight_loss', 'weight_gain', 'muscle_building', 'general_health', 'immune_support', 'vitamin', 'protein'],
-        default: 'general_health'
+        default: '',
     },
-
     // Độ tuổi khuyến nghị
     recommendedAge: {
         type: String,
         enum: ['children', 'adults', 'elderly'],
-        default: 'adults'
+        default: ['adults']
     },
 
     // Chế độ ăn uống
     dietTypes: {
         type: [String],
-        enum: ['vegan', 'vegetarian', 'gluten_free', 'low_carb', 'keto', 'paleo'],
-        default: []
+        enum: ['vegan', 'vegetarian', 'omnivorous', 'pescatarian' ],
+        default: ['omnivorous']
     },
 
-    // Tình trạng sức khỏe hỗ trợ
-    healthConditionsSupported: {
+    // Tình trạng sức khỏe
+    healthCondition: {
         type: [String],
-        enum: ['diabetes', 'high_blood_pressure', 'cholesterol', 'arthritis', 'heart_disease'],
+        enum: [],
         default: []
-    },
-
-    // Hướng dẫn sử dụng
-    usageInstructions: {
-        type: String,
-        required: false
-    },
-
-    // Dị ứng thực phẩm
-    allergens: {
-        type: [String],
-        enum: ['gluten', 'soy', 'dairy', 'nuts', 'egg', 'fish', 'shellfish'],
-        default: []
-    },
-
-    dateCreated: {
-        type: Date,
-        default: Date.now,
     },
     dateCreated: {
         type: Date,
