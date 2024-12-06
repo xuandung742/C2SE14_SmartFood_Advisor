@@ -42,6 +42,10 @@ const SearchBox = (props) => {
       });
     }
   };
+
+  const formatPrice = (price) => {
+    return price?.toLocaleString('vi-VN');
+  };
   return (
     <ClickAwayListener onClickAway={()=>setSearchData([])}>
       <div className="headerSearch ml-4 mr-3">
@@ -69,7 +73,7 @@ const SearchBox = (props) => {
                         {item?.name.substr(0, 50) + "..."}
                       </h4>
                     </Link>
-                    <span>{item?.price}đ</span>
+                    <span>{formatPrice(item?.price)}đ</span>
                   </div>
                 </div>
               );

@@ -205,38 +205,6 @@ const ProductDetails = () => {
                                         </div>
                                     } */}
 
-                                    {
-                                        productData?.productWeight?.length !== 0 &&
-                                        <div className="row">
-                                            <div className="col-sm-3 d-flex align-items-center">
-                                                <span className="icon"><MdLineWeight /></span>
-                                                <span className="name">Weight</span>
-                                            </div>
-
-                                            <div className="col-sm-9">
-
-                                                : <span>
-                                                    <div className="row">
-                                                        <ul className="list list-inline tags sml">
-
-                                                            {
-                                                                productData?.productWeight?.map((item, index) => {
-                                                                    return (
-                                                                        <li className="list-inline-item">
-                                                                            <span>{item}</span>
-                                                                        </li>
-                                                                    )
-                                                                })
-                                                            }
-
-
-                                                        </ul>
-                                                    </div>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    }
-
 
                                     <div className="row">
                                         <div className="col-sm-3 d-flex align-items-center">
@@ -275,8 +243,8 @@ const ProductDetails = () => {
 
                     <div className="p-4">
                         <h6 className="mt-4 mb-3">Product Description</h6>
-                        <p>{productData?.description}</p>
-
+                        {/* <p>{productData?.description}</p> */}
+                        <p style={{ whiteSpace: 'pre-line' }}>{productData?.description}</p>
 
                         <br />
 

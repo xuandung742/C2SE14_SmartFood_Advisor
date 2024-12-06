@@ -101,16 +101,16 @@ const Home = () => {
         setProductsData(res);
       })
 
-      // fetchDataFromApi(
-      //   `/api/products/catId?catId=${context.categoryData[randomIndex]?.id
-      //   }&location=${localStorage.getItem("location")}`
-      // ).then((res) => {
-      //   setRandomCatProducts({
-      //     catName: context.categoryData[randomIndex]?.name,
-      //     catId: context.categoryData[randomIndex]?.id,
-      //     products: res?.products,
-      //   });
-      // });
+      fetchDataFromApi(
+        `/api/products/catId?catId=${context.categoryData[randomIndex]?.id
+        }&location=${localStorage.getItem("location")}`
+      ).then((res) => {
+        setRandomCatProducts({
+          catName: context.categoryData[randomIndex]?.name,
+          catId: context.categoryData[randomIndex]?.id,
+          products: res?.products,
+        });
+      });
     }
   }, [context.categoryData]);
 
@@ -145,16 +145,17 @@ const Home = () => {
         <HomeCat catData={context.categoryData} />
       )}
 
-      <section className="homeProducts pb-0">
+      <section className="homeProducts pb-4">
         <div className="container">
           <div className="row homeProductsRow">
             <div className="col-md-3">
               {context.windowWidth > 992 && (
                 <div className="sticky">
                   {homeSideBanners?.length !== 0 &&
-                    homeSideBanners
-                      ?.slice(0, 2)
-                      ?.map((item, index) => {
+                    [...homeSideBanners] // Tạo một bản sao mảng để không thay đổi mảng gốc
+                      .sort(() => 0.5 - Math.random()) // Trộn ngẫu nhiên mảng
+                      .slice(0, 2) // Lấy 2 phần tử đầu tiên
+                      .map((item, index) => {
                         return (
                           <div className="banner mb-3" key={index}>
                             {item?.subCatId !== null ? (
@@ -294,11 +295,11 @@ const Home = () => {
           )} */}
         </div>
       </section>
-      <div className="container">
+      <div className="container mt-3">
         {randomCatProducts?.length !== 0 &&
           randomCatProducts?.products?.length !== 0 && (
             <>
-              <div className="d-flex align-items-center mt-1 pr-3">
+              <div className="d-flex align-items-center mt-3 pr-3">
                 <div className="info">
                   <h3 className="mb-0 hd">{randomCatProducts?.catName}</h3>
                 </div>

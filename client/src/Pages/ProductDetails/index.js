@@ -278,8 +278,8 @@ const ProductDetails = () => {
                 </ul>
 
                 <div className="d-flex info mb-3">
-                  <span className="oldPrice">đ {formatPrice(productData?.oldPrice)}</span>
-                  <span className="netPrice text-danger ml-2">đ {formatPrice(productData?.price)}</span>
+                  <span className="oldPrice productdt">đ {formatPrice(productData?.oldPrice)}</span>
+                  <span className="netPrice text-danger ml-2 productdt">đ {formatPrice(productData?.price)}</span>
                 </div>
 
                 {productData?.countInStock >= 1 ? (

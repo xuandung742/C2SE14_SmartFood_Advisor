@@ -109,6 +109,7 @@ const EditUpload = () => {
     isFeatured: null,
     discount: 0,
     productWeight: [],
+    nutrition:"",
   });
 
   const productImages = useRef();
@@ -166,6 +167,7 @@ const EditUpload = () => {
         isFeatured: res.isFeatured,
         discount: res.discount,
         productWeight: res.productWeight,
+        nutrition: res.nutrition,
       });
 
 
@@ -363,6 +365,7 @@ const EditUpload = () => {
     formdata.append("isFeatured", formFields.isFeatured);
     formdata.append("discount", formFields.discount);
     formdata.append("productWeight", formFields.productWeight);
+    formdata.append("nutrition", formFields.nutrition);
 
     formFields.images = appendedArray;
 
@@ -531,6 +534,7 @@ const EditUpload = () => {
                     value={formFields.description}
                     name="description"
                     onChange={inputChange}
+                    style={{ whiteSpace: 'pre-wrap' }} 
                   />
                 </div>
 
@@ -653,6 +657,17 @@ const EditUpload = () => {
                   </div>
 
 
+                </div>
+
+                <div className="form-group">
+                  <h6>NUTRITION</h6>
+                  <textarea
+                    rows={5}
+                    cols={10}
+                    value={formFields.nutrition}
+                    name="nutrition"
+                    onChange={inputChange}
+                  />
                 </div>
 
 

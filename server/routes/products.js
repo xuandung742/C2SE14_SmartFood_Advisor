@@ -452,9 +452,7 @@ router.post(`/recentlyViewd`, async (req, res) => {
       productRam: req.body.productRam,
       size: req.body.size,
       productWeight: req.body.productWeight,
-      ingredient: req.body.ingredient,
-      recommendedAge: req.body.recommendedAge,
-      dietTypes: req.body.dietTypes,
+      nutrition: req.body.nutrition,
     });
 
     product = await product.save();
@@ -507,9 +505,7 @@ router.post(`/create`, async (req, res) => {
     size: req.body.size,
     productWeight: req.body.productWeight,
     location: req.body.location !== "" ? req.body.location : "All",
-    ingredient: req.body.ingredient || '',
-    recommendedAge: req.body.recommendedAge || 'adults',
-    dietTypes: req.body.dietTypes || ['omnivorous']
+    nutrition: req.body.nutrition || '',
   });
 
   product = await product.save();
@@ -631,9 +627,7 @@ router.put("/:id", async (req, res) => {
       size: req.body.size,
       productWeight: req.body.productWeight,
       location: req.body.location,
-      ingredient: req.body.ingredient,
-      recommendedAge: req.body.recommendedAge,
-      dietTypes: req.body.dietTypes,
+      nutrition: req.body.nutrition,
     },
     { new: true }
   );

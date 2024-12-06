@@ -338,6 +338,7 @@ header .part3 .circle svg {
   max-height: 300px;
   overflow-y: scroll;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
+  border-radius: 0px 5px 5px 0px;
 }
 
 .headerSearchWrapper .searchResults .result {
@@ -1863,11 +1864,11 @@ footer .linksWrap ul li a:hover {
 }
 
 .productDetails .info .oldPrice {
-  font-size: 20px !important;
+  font-size: 17px !important;
 }
 
 .productDetails .info .netPrice {
-  font-size: 22px !important;
+  font-size: 17px !important;
 }
 
 .reviewBox {

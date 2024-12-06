@@ -242,7 +242,7 @@ header .part2 {
 }
 
 body.dark .searchBox {
-  background: #12254e;
+  background: #252b49;
 }
 
 .searchBox input {
@@ -335,7 +335,7 @@ body.dark .myAcc .userInfo * {
 }
 
 body.dark .css-1t1j96h-MuiPaper-root-MuiDialog-paper {
-  background-color: #12254e !important;
+  background-color: #252b49 !important;
 }
 
 body.dark .MuiPaper-elevation li *,
@@ -394,8 +394,8 @@ body.dark .dropdown_list .head h4 {
 }
 
 body.dark .dropdown_list li.MuiButtonBase-root {
-  background-color: #12254e !important;
-  background: #12254e !important;
+  background-color: #252b49 !important;
+  background: #252b49 !important;
 }
 
 .dropdown_list li.MunotificationsiButtonBase-root:hover {
@@ -2183,7 +2183,7 @@ body.dark .MuiInputBase-root fieldset {
 }
 
 body.dark .MuiMenu-paper {
-  background-color: #12254e !important;
+  background-color: #252b49 !important;
 }
 
 body.dark .MuiOutlinedInput-notchedOutline {
@@ -2195,7 +2195,7 @@ body.dark .MuiPaginationItem-root {
 }
 
 body.dark .MuiDialog-paper {
-  background-color: #12254e !important;
+  background-color: #252b49 !important;
 }
 
 
@@ -2310,4 +2310,8 @@ body.dark .form .form-group input.select__input {
 
 body.dark .select__menu * {
   color: #000 !important;
+}
+
+textarea {
+  white-space: pre-wrap;
 }

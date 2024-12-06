@@ -96,22 +96,9 @@ const productSchema = mongoose.Schema({
             }
         },
     ],
-    ingredient: {
+    nutrition: {
         type: String,
         default: '',
-    },
-    // Độ tuổi khuyến nghị
-    recommendedAge: {
-        type: [String],
-        enum: ['children', 'adults', 'elderly'],
-        default: ['adults']
-    },
-
-    // Chế độ ăn uống
-    dietTypes: {
-        type: [String],
-        enum: ['vegan', 'vegetarian', 'omnivorous', 'pescatarian' ],
-        default: ['omnivorous']
     },
     dateCreated: {
         type: Date,

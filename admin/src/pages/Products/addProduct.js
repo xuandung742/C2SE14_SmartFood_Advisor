@@ -113,6 +113,7 @@ const ProductUpload = () => {
     size: [],
     productWeight: [],
     location: [],
+    nutrition: "",
   });
 
   const productImages = useRef();
@@ -392,6 +393,7 @@ const ProductUpload = () => {
     formdata.append("size", formFields.size);
     formdata.append("productWeight", formFields.productWeight);
     formdata.append("location", formFields.location);
+    formdata.append("nutrition", formFields.nutrition);
 
     formFields.location = selectedLocation;
 
@@ -698,6 +700,17 @@ const ProductUpload = () => {
                       />
                     </div>
                   </div>
+                </div>
+
+                <div className="form-group">
+                  <h6>NUTRITION</h6>
+                  <textarea
+                    rows={5}
+                    cols={10}
+                    value={formFields.nutrition}
+                    name="nutrition"
+                    onChange={inputChange}
+                  />
                 </div>
 
               </div>

@@ -25,8 +25,8 @@ const Sidebar = (props) => {
     const [subCatId, setSubCatId] = useState('');
     const [filterSubCat, setfilterSubCat] = React.useState();
 
-    const [catId, setCatId] = useState(''); 
-    const [filterCat, setFilterCat] = useState(''); 
+    const [catId, setCatId] = useState('');
+    const [filterCat, setFilterCat] = useState('');
 
     const [isOpenFilter, setIsOpenFilter] = useState(false);
     const [homeSideBanners, setHomeSideBanners] = useState([]);
@@ -40,9 +40,9 @@ const Sidebar = (props) => {
         setSubCatId(id);
         fetchDataFromApi("/api/homeSideBanners").then((res) => {
             setHomeSideBanners(res);
-          });
+        });
     }, [id])
-    
+
 
     useEffect(() => {
         setIsOpenFilter(props.isOpenFilter)
@@ -57,23 +57,26 @@ const Sidebar = (props) => {
 
     useEffect(() => {
         props.filterByPrice(value, subCatId);
-    }, [value,id]);
+    }, [value, id]);
 
     const filterByRating = (rating) => {
         props.filterByRating(rating, subCatId);
     }
+    const formatPrice = (price) => {
+        return price?.toLocaleString('vi-VN');
+    };
 
     return (
         <>
-            <div className={`sidebar ${isOpenFilter===true && 'open'}`}>
+            <div className={`sidebar ${isOpenFilter === true && 'open'}`}>
 
                 {
                     context.windowWidth < 992 && <>
-                    <div className='info d-flex align-items-center'>
-                        <h5>Bộ lọc tìm kiếm</h5>
-                        <span className='ml-auto closeFilters'><IoMdCloseCircle onClick={()=>context?.setIsOpenFilters(!context?.isOpenFilters)}/></span>
-                    </div>
-                    <hr/>
+                        <div className='info d-flex align-items-center'>
+                            <h5>Bộ lọc tìm kiếm</h5>
+                            <span className='ml-auto closeFilters'><IoMdCloseCircle onClick={() => context?.setIsOpenFilters(!context?.isOpenFilters)} /></span>
+                        </div>
+                        <hr />
                     </>
                 }
 
@@ -111,9 +114,10 @@ const Sidebar = (props) => {
 
 
                     <div className='d-flex pt-2 pb-2 priceRange'>
-                        <span>Từ: <strong className='text-dark'>đ{value[0]}</strong></span>
-                        <span className='ml-auto'>Đến: <strong className='text-dark'>đ{value[1]}</strong></span>
+                        <span>Từ: <strong className='text-dark'>đ{formatPrice(value[0])}</strong></span>
+                        <span className='ml-auto'>Đến: <strong className='text-dark'>đ{formatPrice(value[1])}</strong></span>
                     </div>
+
                 </div>
 
 
@@ -125,7 +129,7 @@ const Sidebar = (props) => {
                             <li onClick={() => filterByRating(5)} className='cursor' >
                                 <Rating name="read-only" value={5} readOnly size="small"
                                 />
-                                
+
                             </li>
                             <li onClick={() => filterByRating(4)} className='cursor'>
                                 <Rating name="read-only" value={4} readOnly size="small"
@@ -150,38 +154,42 @@ const Sidebar = (props) => {
                 </div>
 
 
-                
+
                 {homeSideBanners?.length !== 0 &&
-                    homeSideBanners?.map((item, index) => {
-                      return (
-                        <div className="banner mb-3" key={index}>
-                          {item?.subCatId !== null ? (
-                            <Link
-                              to={`/products/subCat/${item?.subCatId}`}
-                              className="box"
-                            >
-                              <img
-                                src={item?.images[0]}
-                                className="w-100 transition"
-                                alt="banner img"
-                              />
-                            </Link>
-                          ) : (
-                            <Link
-                              to={`/products/category/${item?.catId}`}
-                              className="box"
-                            >
-                              <img
-                                src={item?.images[0]}
-                                className="cursor w-100 transition"
-                                alt="banner img"
-                              />
-                            </Link>
-                          )}
-                        </div>
-                      );
-                    })}
-              
+                    [...homeSideBanners] // Tạo một bản sao mảng để không thay đổi mảng gốc
+                        .sort(() => 0.5 - Math.random()) // Trộn ngẫu nhiên mảng
+                        .slice(0, 2) // Lấy 2 phần tử đầu tiên
+                        .map((item, index) => {
+                            return (
+                                <div className="banner mb-3" key={index}>
+                                    {item?.subCatId !== null ? (
+                                        <Link
+                                            to={`/products/subCat/${item?.subCatId}`}
+                                            className="box"
+                                        >
+                                            <img
+                                                src={item?.images[0]}
+                                                className="w-100 transition"
+                                                alt="banner img"
+                                            />
+                                        </Link>
+                                    ) : (
+                                        <Link
+                                            to={`/products/category/${item?.catId}`}
+                                            className="box"
+                                        >
+                                            <img
+                                                src={item?.images[0]}
+                                                className="cursor w-100 transition"
+                                                alt="banner img"
+                                            />
+                                        </Link>
+                                    )}
+                                </div>
+                            );
+                        })}
+
+
             </div>
         </>
     )
