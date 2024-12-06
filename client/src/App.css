@@ -2473,3 +2473,7 @@ input[type=number]::-webkit-outer-spin-button {
   bottom: 12% !important;
   transform: scale(1) !important;
 }
+
+.css-b995z3-MuiFormControl-root {
+  margin-top: 0 !important;
+}

@@ -4,8 +4,8 @@ const token=localStorage.getItem("token");
 
 const params={
     headers: {
-        'Authorization': `Bearer ${token}`, // Include your API key in the Authorization header
-        'Content-Type': 'application/json', // Adjust the content type as needed
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
       },
 
 } 

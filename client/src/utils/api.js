@@ -5,8 +5,8 @@ const token=localStorage.getItem("token");
 
 const params={
     headers: {
-        'Authorization': `Bearer ${token}`, // Include your API key in the Authorization header
-        'Content-Type': 'application/json', // Adjust the content type as needed
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
       },
 
 } 
@@ -29,8 +29,8 @@ export const postData = async (url, formData) => {
         const response = await fetch(process.env.REACT_APP_API_URL + url, {
             method: 'POST',
             headers: {
-                'Authorization': `Bearer ${token}`, // Include your API key in the Authorization header
-                'Content-Type': 'application/json', // Adjust the content type as needed
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
               },
            
             body: JSON.stringify(formData)

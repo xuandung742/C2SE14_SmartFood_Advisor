@@ -5,49 +5,133 @@ import Dialog from '@mui/material/Dialog';
 import { MdClose } from "react-icons/md";
 import Slide from '@mui/material/Slide';
 import { TextField, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, MenuItem, FormGroup, Checkbox } from '@mui/material';
+import { fetchDataFromApi, postData } from '../../utils/api';
+import { MyContext } from '../../App';
+import InputAdornment from '@mui/material/InputAdornment';
+import Input from '@mui/material/Input';
+import FilledInput from '@mui/material/FilledInput';
+import FormHelperText from '@mui/material/FormHelperText';
+import Select from '@mui/material/Select';
+import InputLabel from '@mui/material/InputLabel';
+import Box from '@mui/material/Box';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import Chip from '@mui/material/Chip';
+import { useTheme } from '@mui/material/styles';
+
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+    PaperProps: {
+        style: {
+            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+            width: 250,
+        },
+    },
+};
+const diseases = [
+    'Kidney Disease', 'Hypertension', 'Heart Disease', 'Diabetes', 'Acne', 'Osteoporosis',
+];
+const diseaseTranslation = {
+    "Kidney Disease": "Bệnh thận",
+    "Hypertension": "Tăng huyết áp",
+    "Heart Disease": "Bệnh tim",
+    "Diabetes": "Bệnh tiểu đường",
+    "Acne": "Mụn trứng cá",
+    "Osteoporosis": "Loãng xương"
+};
+
+
+
+function getStyles(disease, diseaseName, theme) {
+    return {
+        fontWeight: diseaseName.includes(disease)
+            ? theme.typography.fontWeightMedium
+            : theme.typography.fontWeightRegular,
+    };
+}
+
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
 const AIForm = () => {
+
+    const context = useContext(MyContext);
+    const [dietary, setdietary] = React.useState('');
+    const [activityLevel, setactivityLevel] = React.useState('');
+
     const [isOpenModal, setisOpenModal] = useState(false);
-    const [formData, setFormData] = useState({
-        name: "",
+
+    const [forms, setForms] = useState({
         age: "",
         gender: "",
         weight: "",
         height: "",
-        goal: "",
-        diet: "",
+        dietary: "omnivorous",
+        activityLevel: "Lightly Active",
         healthConditions: [],
-        allergies: [],
-        activityLevel: "",
-        additionalInfo: "",
+        userId: "",
     });
-
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value,
-        });
-    };
-
-    const handleCheckboxChange = (e) => {
-        const { name, value } = e.target;
-        setFormData((prevData) => ({
-            ...prevData,
-            [name]: prevData[name].includes(value)
-                ? prevData[name].filter((item) => item !== value)
-                : [...prevData[name], value],
-        }));
-    };
-
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("Form data submitted:", formData);
+        const formData = new FormData();
+
+        const user = JSON.parse(localStorage.getItem("user"));
+
+        forms.userId = user?.userId;
+
+
+        console.log(forms)
+
+        // setForms(() => (
+        //     {
+        //         ...forms,
+        //         userId: user?.userId
+        //     }
+        // ))
+
+        // formData.append("age", user?.age);
+        // formData.append("gender", user?.gender);
+        // formData.append("weight", user?.weight);
+        // formData.append("height", user?.height);
+        // formData.append("dietary", user?.dietary);
+        // formData.append("activityLevel", user?.activityLevel);
+        // formData.append("healthConditions", user?.healthConditions);
+        // formData.append("userId", user?.userId);
+
+        postData("/api/healthForm/add", forms).then((res) => {
+
+        })
     };
+
+    const changeDiet = (event) => {
+        setdietary(event.target.value);
+        forms.dietary = event.target.value
+    };
+    const changeActivity = (event) => {
+        setactivityLevel(event.target.value)
+        forms.activityLevel = event.target.value
+    };
+    const changeDietary = (event) => {
+        const {
+            target: { value },
+        } = event;
+        setDiseaseName(
+            typeof value === 'string' ? value.split(',') : value,
+        );
+    };
+
+    const onChangeInput = (e) => {
+        setForms(() => ({
+            ...forms,
+            [e.target.name]: e.target.value
+        }))
+    }
+
+    const theme = useTheme();
+    const [diseaseName, setDiseaseName] = React.useState([]);
 
     return (
         <>
@@ -59,202 +143,173 @@ const AIForm = () => {
 
             <Dialog open={isOpenModal} onClose={() => setisOpenModal(false)} className='aiform' TransitionComponent={Transition}>
                 <div className="dialogContent">
-                    <h4 className='mb-0 flex-items-center'>Sản phẩm dành riêng cho bạn</h4>
+                    <h4 className='mb-0'>Vui lòng nhập các thông tin dưới đây</h4>
                     <Button className='close_' onClick={() => setisOpenModal(false)}><MdClose /></Button>
                     <form onSubmit={handleSubmit}>
-                        <TextField
-                            label="Họ và tên"
-                            name="name"
-                            value={formData.name}
-                            onChange={handleInputChange}
-                            fullWidth
-                            required
-                            margin="normal"
-                            autoFocus
-                        />
-
-                        <TextField
-                            label="Tuổi"
-                            name="age"
-                            value={formData.age}
-                            onChange={handleInputChange}
-                            fullWidth
-                            required
-                            margin="normal"
-                            type="number"
-                        />
-
-                        <FormControl component="fieldset" margin="normal">
-                            <FormLabel component="legend">Giới tính</FormLabel>
-                            <RadioGroup
-                                name="gender"
-                                value={formData.gender}
-                                onChange={handleInputChange}
-                                className='ml-2'
-                            >
-                                <FormControlLabel value="male" control={<Radio />} label="Nam" />
-                                <FormControlLabel value="female" control={<Radio />} label="Nữ" />
-                                <FormControlLabel value="other" control={<Radio />} label="Khác" />
-                            </RadioGroup>
-                        </FormControl>
-
-                        <TextField
-                            label="Cân nặng (kg)"
-                            name="weight"
-                            value={formData.weight}
-                            onChange={handleInputChange}
-                            fullWidth
-                            required
-                            margin="normal"
-                            type="number"
-                        />
-
-                        <TextField
-                            label="Chiều cao (cm)"
-                            name="height"
-                            value={formData.height}
-                            onChange={handleInputChange}
-                            fullWidth
-                            required
-                            margin="normal"
-                            type="number"
-                        />
-
-                        <TextField
-                            select
-                            label="Mục tiêu dinh dưỡng"
-                            name="goal"
-                            value={formData.goal}
-                            onChange={handleInputChange}
-                            fullWidth
-                            required
-                            margin="normal"
-                        >
-                            <MenuItem value="weight_loss">Giảm cân</MenuItem>
-                            <MenuItem value="weight_gain">Tăng cân</MenuItem>
-                            <MenuItem value="maintain_weight">Duy trì cân nặng</MenuItem>
-                            <MenuItem value="muscle_gain">Tăng cơ</MenuItem>
-                            <MenuItem value="vitamin_support">Bổ sung vitamin</MenuItem>
-                            <MenuItem value="digestive_support">Hỗ trợ tiêu hóa</MenuItem>
-                        </TextField>
-
-                        <TextField
-                            select
-                            label="Chế độ ăn uống"
-                            name="diet"
-                            value={formData.diet}
-                            onChange={handleInputChange}
-                            fullWidth
-                            required
-                            margin="normal"
-                        >
-                            <MenuItem value="meat">Ăn mặn</MenuItem>
-                            <MenuItem value="vegan">Ăn chay</MenuItem>
-                            <MenuItem value="keto">Keto</MenuItem>
-                            <MenuItem value="gluten_free">Không gluten</MenuItem>
-                            <MenuItem value="no_sugar">Không đường</MenuItem>
-                        </TextField>
-
-                        <FormGroup row className='ml-3 mt-2 mb-2'>
-                            <FormControlLabel
-                                control={
-                                    <Checkbox
-                                        name="healthConditions"
-                                        value="diabetes"
-                                        checked={formData.healthConditions.includes("diabetes")}
-                                        onChange={handleCheckboxChange}
-                                    />
-                                }
-                                label="Tiểu đường"
+                        <div className="w-auto mt-3">
+                            <TextField
+                                label="Tuổi"
+                                id="standard-size-small"
+                                defaultValue="Small"
+                                size="small"
+                                variant="standard"
+                                type='number'
+                                className='w-100'
+                                name='age' onChange={onChangeInput}
+                                value={forms.age}
                             />
-                            <FormControlLabel
-                                control={
-                                    <Checkbox
-                                        name="healthConditions"
-                                        value="high_blood_pressure"
-                                        checked={formData.healthConditions.includes("high_blood_pressure")}
-                                        onChange={handleCheckboxChange}
-                                    />
-                                }
-                                label="Huyết áp cao"
-                            />
-                            <FormControlLabel
-                                control={
-                                    <Checkbox
-                                        name="healthConditions"
-                                        value="high_cholesterol"
-                                        checked={formData.healthConditions.includes("high_cholesterol")}
-                                        onChange={handleCheckboxChange}
-                                    />
-                                }
-                                label="Cholesterol cao"
-                            />
-                        </FormGroup>
+                        </div>
+                        <div className='mt-4'>
+                            <FormControl>
+                                <FormLabel id="demo-radio-buttons-group-label">Giới tính</FormLabel>
+                                <RadioGroup
+                                    aria-labelledby="demo-radio-buttons-group-label"
+                                    defaultValue="male"
+                                    className='ml-3'
+                                    value={forms.gender}
+                                    name='gender' onChange={onChangeInput}
+                                >
+                                    <FormControlLabel value="male" control={<Radio />} label="Nam" />
+                                    <FormControlLabel value="female" control={<Radio />} label="Nữ" />
+                                </RadioGroup>
+                            </FormControl>
+                        </div>
 
-                        <FormGroup row className='ml-3 mt-2'>
-                            <FormControlLabel
-                                control={
-                                    <Checkbox
-                                        name="allergies"
-                                        value="lactose"
-                                        checked={formData.allergies.includes("lactose")}
-                                        onChange={handleCheckboxChange}
-                                    />
-                                }
-                                label="Lactose"
-                            />
-                            <FormControlLabel
-                                control={
-                                    <Checkbox
-                                        name="allergies"
-                                        value="gluten"
-                                        checked={formData.allergies.includes("gluten")}
-                                        onChange={handleCheckboxChange}
-                                    />
-                                }
-                                label="Gluten"
-                            />
-                            <FormControlLabel
-                                control={
-                                    <Checkbox
-                                        name="allergies"
-                                        value="nuts"
-                                        checked={formData.allergies.includes("nuts")}
-                                        onChange={handleCheckboxChange}
-                                    />
-                                }
-                                label="Hạt (nuts)"
-                            />
-                        </FormGroup>
+                        <div className="d-flex">
+                            <FormControl className='w-50' variant="standard" sx={{ mr: 1 }}>
+                                <InputLabel id="demo-simple-select-standard-label">Chiều cao</InputLabel>
+                                <Input
+                                    id="standard-adornment-weight"
+                                    endAdornment={<InputAdornment position="end">cm</InputAdornment>}
+                                    aria-describedby="standard-weight-helper-text"
+                                    inputProps={{
+                                        'aria-label': 'weight',
+                                    }}
+                                    name='height' onChange={onChangeInput}
+                                    value={forms.height}
+                                />
+                            </FormControl>
 
-                        <TextField
-                            select
-                            label="Mức độ hoạt động"
-                            name="activityLevel"
-                            value={formData.activityLevel}
-                            onChange={handleInputChange}
-                            fullWidth
-                            required
-                            margin="normal"
-                        >
-                            <MenuItem value="low">Ít vận động</MenuItem>
-                            <MenuItem value="moderate">Vừa phải</MenuItem>
-                            <MenuItem value="active">Rất tích cực</MenuItem>
-                            <MenuItem value="very_active">Vận động viên</MenuItem>
-                        </TextField>
+                            <FormControl className='w-50' variant="standard" sx={{ ml: 1 }}>
+                                <InputLabel id="demo-simple-select-standard-label">Cân nặng</InputLabel>
+                                <Input
+                                    id="standard-adornment-height"
+                                    endAdornment={<InputAdornment position="end">kg</InputAdornment>}
+                                    aria-describedby="standard-height-helper-text"
+                                    inputProps={{
+                                        'aria-label': 'height',
+                                    }}
+                                    name='weight' onChange={onChangeInput}
+                                    value={forms.weight}
+                                />
+                            </FormControl>
+                        </div>
 
-                        <TextField
-                            label="Thông tin bổ sung"
-                            name="additionalInfo"
-                            value={formData.additionalInfo}
-                            onChange={handleInputChange}
-                            fullWidth
-                            multiline
-                            rows={3}
-                            margin="normal"
-                            placeholder="Nhập thêm thông tin bạn muốn chúng tôi lưu ý (nếu có)"
-                        />
+                        <div className="d-flex mt-4">
+                            <FormControl className='w-50' variant="standard" sx={{ mr: 1 }}>
+                                <InputLabel id="demo-simple-select-standard-label">Chế độ ăn</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-standard-label"
+                                    id="demo-simple-select-standard"
+                                    value={forms.dietary}
+                                    onChange={changeDiet}
+                                    label="Chế độ ăn"
+                                    name='dietary'
+                                >
+                                    <MenuItem value="vegan">Ăn chay</MenuItem>
+                                    <MenuItem value="vegetarian">Ăn thuần chay</MenuItem>
+                                    <MenuItem value="omnivorous">Ăn tạp</MenuItem>
+                                    <MenuItem value="pescatarian">Pescatarian</MenuItem>
+                                </Select>
+                            </FormControl>
 
+                            <FormControl className='w-50' variant="standard" sx={{ ml: 1 }}>
+                                <InputLabel id="demo-simple-select-standard-label">Mức độ vận động</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-standard-label"
+                                    id="demo-simple-select-standard"
+                                    value={forms.activityLevel}
+                                    onChange={changeActivity}
+                                    label="Mức độ vận động"
+                                    name='activityLevel'
+                                >
+                                    <MenuItem value="Sedentary">Ít vận động</MenuItem>
+                                    <MenuItem value="Lightly Active">Vận động nhẹ</MenuItem>
+                                    <MenuItem value="Moderately Active">Vận động nhiều</MenuItem>
+                                    <MenuItem value="Very Active">Vận động rất nhiều</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </div>
+
+                        <div className='mt-4 mb-4'>
+                            {/* <FormControl className='w-100'>
+                                <InputLabel id="demo-multiple-chip-label">Tình trạng sức khỏe</InputLabel>
+                                <Select
+                                    labelId="demo-multiple-chip-label"
+                                    id="demo-multiple-chip"
+                                    multiple
+                                    value={diseaseName}
+                                    name='healthConditions'
+                                    onChange={changeDietary}
+                                    input={<OutlinedInput id="select-multiple-chip" label="Tình trạng sức khỏe" />}
+                                    renderValue={(selected) => (
+                                        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                                            {selected.map((value) => (
+                                                <Chip key={value} label={value} />
+                                            ))}
+                                        </Box>
+                                    )}
+                                    MenuProps={MenuProps}
+                                >
+                                    {diseases.map((disease) => (
+                                        <MenuItem
+                                            key={disease}
+                                            value={disease}
+                                            style={getStyles(disease, diseaseName, theme)}
+                                        >
+                                            {disease}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl> */}
+
+                            <FormControl className='w-100'>
+                                <InputLabel id="demo-multiple-chip-label">Tình trạng sức khỏe</InputLabel>
+                                <Select
+                                    labelId="demo-multiple-chip-label"
+                                    id="demo-multiple-chip"
+                                    multiple
+                                    value={forms.healthConditions}
+                                    onChange={(e) => {
+                                        setForms({
+                                            ...forms,
+                                            healthConditions: e.target.value
+                                        });
+                                    }}
+                                    input={<OutlinedInput id="select-multiple-chip" label="Tình trạng sức khỏe" />}
+                                    renderValue={(selected) => (
+                                        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                                            {selected.map((value) => (
+                                                <Chip key={value} label={diseaseTranslation[value] || value} />
+                                            ))}
+                                        </Box>
+                                    )}
+                                    MenuProps={MenuProps}
+                                >
+                                    {diseases.map((disease) => (
+                                        <MenuItem
+                                            key={disease}
+                                            value={disease}
+                                            style={getStyles(disease, forms.healthConditions, theme)}
+                                        >
+                                            {diseaseTranslation[disease] || disease}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+
+
+                        </div>
 
                         <Button variant="contained" type="submit" className='btn-blue bg-red btn-lg btn-big w-100 mt-2'>
                             Gửi
@@ -262,6 +317,11 @@ const AIForm = () => {
                     </form>
                 </div>
             </Dialog>
+
+            <div>
+                
+            </div>
+
         </>
     );
 };

@@ -1,17 +1,13 @@
 const mongoose = require("mongoose");
 
 const healthFormSchema = mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
   age: {
     type: Number,
     required: true,
   },
   gender: {
     type: String,
-    enum: ["male", "female", "other"],
+    enum: ["male", "female"],
     required: true,
   },
   weight: {
@@ -22,40 +18,25 @@ const healthFormSchema = mongoose.Schema({
     type: Number,
     required: true,
   },
-  goal: {
+  dietary: {
     type: String,
-    enum: [
-      "weight_loss",
-      "weight_gain",
-      "maintain_weight",
-      "muscle_gain",
-      "vitamin_support",
-      "digestive_support",
-    ],
-    required: true,
+    enum: ['vegan', 'vegetarian', 'omnivorous', 'pescatarian'],
+    default: 'omnivorous'
   },
-  diet: {
+  activityLevel: {
     type: String,
-    enum: ["meat", "vegan", "keto", "gluten_free", "no_sugar"],
+    enum: ["Sedentary", "Lightly Active", "Moderately Active", "Very Active"],
+    default: "Lightly Active",
     required: true,
   },
   healthConditions: {
     type: [String],
-    default: [],
+    enum: ['Kidney Disease', 'Hypertension', 'Heart Disease', 'Diabetes', 'Acne', 'Osteoporosis'],
   },
-  allergies: {
-    type: [String],
-    default: [],
-  },
-  activityLevel: {
+  userId: {
     type: String,
-    enum: ["low", "moderate", "active", "very_active"],
-    required: true,
-  },
-  additionalInfo: {
-    type: String,
-    default: "",
-  },
+    required: true
+  }
 });
 
 healthFormSchema.virtual("id").get(function () {

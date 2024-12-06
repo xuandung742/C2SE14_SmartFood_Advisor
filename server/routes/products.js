@@ -455,7 +455,6 @@ router.post(`/recentlyViewd`, async (req, res) => {
       ingredient: req.body.ingredient,
       recommendedAge: req.body.recommendedAge,
       dietTypes: req.body.dietTypes,
-      healthCondition: req.body.healthCondition,
     });
 
     product = await product.save();
@@ -510,8 +509,7 @@ router.post(`/create`, async (req, res) => {
     location: req.body.location !== "" ? req.body.location : "All",
     ingredient: req.body.ingredient || '',
     recommendedAge: req.body.recommendedAge || 'adults',
-    dietTypes: req.body.dietTypes || ['omnivorous'],
-    healthCondition: req.body.healthCondition || [],
+    dietTypes: req.body.dietTypes || ['omnivorous']
   });
 
   product = await product.save();
@@ -636,7 +634,6 @@ router.put("/:id", async (req, res) => {
       ingredient: req.body.ingredient,
       recommendedAge: req.body.recommendedAge,
       dietTypes: req.body.dietTypes,
-      healthCondition: req.body.healthCondition,
     },
     { new: true }
   );

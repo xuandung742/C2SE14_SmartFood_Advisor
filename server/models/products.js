@@ -102,7 +102,7 @@ const productSchema = mongoose.Schema({
     },
     // Độ tuổi khuyến nghị
     recommendedAge: {
-        type: String,
+        type: [String],
         enum: ['children', 'adults', 'elderly'],
         default: ['adults']
     },
@@ -112,13 +112,6 @@ const productSchema = mongoose.Schema({
         type: [String],
         enum: ['vegan', 'vegetarian', 'omnivorous', 'pescatarian' ],
         default: ['omnivorous']
-    },
-
-    // Tình trạng sức khỏe
-    healthCondition: {
-        type: [String],
-        enum: [],
-        default: []
     },
     dateCreated: {
         type: Date,
