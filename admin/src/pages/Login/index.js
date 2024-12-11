@@ -213,7 +213,6 @@ const Login = () => {
 
   return (
     <>
-      <img src={patern} className="loginPatern" />
       <section className="loginSection">
         <div className="loginBox">
           <Link to={"/"} className="d-flex align-items-center flex-column logo">

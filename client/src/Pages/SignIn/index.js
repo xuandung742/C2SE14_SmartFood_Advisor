@@ -163,7 +163,7 @@ const SignIn = () => {
         context.setAlertBox({
           open: true,
           error: false,
-          msg: "Xác thực người dùng thành công!",
+          msg: "Đăng nhập thành công!",
         });
 
        // window.location.href = "/";
@@ -212,7 +212,7 @@ const SignIn = () => {
           </div>
 
           <form className="mt-3" onSubmit={login}>
-            <h2 className="mb-4">Đăng Nhập</h2>
+            <h2 className="mb-4 text-center">Đăng Nhập</h2>
 
             <div className="form-group">
               <TextField
@@ -243,7 +243,7 @@ const SignIn = () => {
 
             <div className="d-flex align-items-center mt-3 mb-3 ">
               <Button type="submit" className="btn-blue col btn-lg btn-big">
-                {isLoading === true ? <CircularProgress /> : "Sign In"}
+                {isLoading === true ? <CircularProgress /> : "Đăng Nhập"}
               </Button>
               <Link to="/">
                 {" "}

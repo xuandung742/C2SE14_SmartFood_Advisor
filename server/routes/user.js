@@ -144,7 +144,7 @@ router.post(`/signin`, async (req, res) => {
        return res.status(200).send({
             user:existingUser,
             token:token,
-            msg:"Người dùng đã được xác thực"
+            msg:"Đăng nhập thành công!"
         })
 
     }catch (error) {

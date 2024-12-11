@@ -2177,7 +2177,7 @@ a:hover {
   width: 100%;
   top: 0;
   left: 0;
-  background-image: linear-gradient(#46277e, #583991);
+  background-image: linear-gradient(#1667ff, #377EFF);
   opacity: 0.9;
   z-index: -1;
 }
@@ -2233,7 +2233,7 @@ a:hover {
 }
 
 .signInPage .box .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 .signInPage .box .txt {

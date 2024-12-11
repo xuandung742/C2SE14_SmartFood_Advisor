@@ -176,7 +176,7 @@ const SignUp = () => {
         context.setAlertBox({
           open: true,
           error: false,
-          msg: "Xác thực người dùng thành công!",
+          msg: "Đăng kí thành công!",
         });
 
         // window.location.href = "/";
@@ -225,7 +225,7 @@ const SignUp = () => {
           </div>
 
           <form className="mt-2" onSubmit={register}>
-            <h2 className="mb-3">Đăng Ký</h2>
+            <h2 className="mb-3 text-center">Đăng Ký</h2>
 
             <div className="row">
               <div className="col-md-6">
@@ -278,9 +278,9 @@ const SignUp = () => {
               />
             </div>
 
-            <a className="border-effect cursor txt">Quên mật khẩu?</a>
+            {/* <a className="border-effect cursor txt">Quên mật khẩu?</a> */}
 
-            <div className="d-flex align-items-center mt-3 mb-3 ">
+            <div className="d-flex align-items-center mt-5 mb-3 ">
               <div className="row w-100">
                 <div className="col-md-6">
                   <Button
@@ -288,7 +288,7 @@ const SignUp = () => {
                     disabled={isLoading === true ? true : false}
                     className="btn-blue w-100 btn-lg btn-big"
                   >
-                    {isLoading === true ? <CircularProgress /> : "Sign Up"}
+                    {isLoading === true ? <CircularProgress /> : "Đăng Ký"}
                   </Button>
                 </div>
                 <div className="col-md-6 pr-0">
@@ -299,7 +299,7 @@ const SignUp = () => {
                       variant="outlined"
                       onClick={() => context.setisHeaderFooterShow(true)}
                     >
-                      Cancel
+                      Quay lại
                     </Button>
                   </Link>
                 </div>

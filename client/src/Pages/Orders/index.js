@@ -14,21 +14,33 @@ const Orders = () => {
     const [page, setPage] = useState(1);
 
     const [isOpenModal, setIsOpenModal] = useState(false);
-    const [isLogin,setIsLogin]  = useState(false);
+    const [isLogin, setIsLogin] = useState(false);
 
     const context = useContext(MyContext);
 
     const history = useNavigate();
+    const translateStatus = (status) => {
+        switch (status) {
+            case "pending":
+                return "Đang xử lý";
+            case "confirm":
+                return "Đã xác nhận";
+            case "delivered":
+                return "Đã giao hàng";
+            default:
+                return "Không xác định";
+        }
+    };
 
     useEffect(() => {
         window.scrollTo(0, 0);
 
         const token = localStorage.getItem("token");
-        if(token!=="" && token!==undefined  && token!==null){
-          setIsLogin(true);
+        if (token !== "" && token !== undefined && token !== null) {
+            setIsLogin(true);
         }
-        else{
-          history("/signIn");
+        else {
+            history("/signIn");
         }
 
         const user = JSON.parse(localStorage.getItem("user"));
@@ -36,8 +48,8 @@ const Orders = () => {
             setOrders(res);
         })
 
-        
-    context.setEnableFilterTab(false);
+
+        context.setEnableFilterTab(false);
 
     }, []);
 
@@ -80,20 +92,28 @@ const Orders = () => {
                                         return (
                                             <>
                                                 <tr key={index}>
-                                                 <td><span className='text-blue fonmt-weight-bold'>{order?.id}</span></td>
-=                                                    <td><span className='text-blue fonmt-weight-bold cursor' onClick={() => showProducts(order?._id)}>Click here to view</span>
+                                                    <td><span className='text-blue fonmt-weight-bold'>{order?.id}</span></td>
+                                                    <td><span className='text-blue fonmt-weight-bold cursor' onClick={() => showProducts(order?._id)}>Xem chi tiết</span>
                                                     </td>
                                                     <td>{order?.name}</td>
                                                     <td>{order?.phoneNumber}</td>
                                                     <td>{order?.address}</td>
                                                     <td>{order?.amount}</td>
                                                     <td>{order?.email}</td>
-                                                    <td>
+                                                    {/* <td>
                                                         {order?.status === "pending" ?
                                                             <span className='badge badge-danger'>{order?.status}</span> :
                                                             <span className='badge badge-success'>{order?.status}</span>
                                                         }
+                                                    </td> */}
+                                                    <td>
+                                                        <span
+                                                            className={`badge ${order?.status === "pending" ? 'badge-danger' : 'badge-success'}`}
+                                                        >
+                                                            {translateStatus(order?.status)}
+                                                        </span>
                                                     </td>
+
                                                     <td>{order?.date?.split("T")[0]}</td>
                                                 </tr>
 
@@ -110,7 +130,7 @@ const Orders = () => {
                     </div>
 
 
-                   
+
 
                 </div>
             </section>
@@ -139,8 +159,8 @@ const Orders = () => {
                                     return (
                                         <tr>
                                             <td>{item?.productId}</td>
-                                            <td  style={{whiteSpace:"inherit"}}><span>
-                                                {item?.productTitle?.substr(0,30)+'...'}
+                                            <td style={{ whiteSpace: "inherit" }}><span>
+                                                {item?.productTitle?.substr(0, 30) + '...'}
                                             </span></td>
                                             <td>
                                                 <div className='img'>

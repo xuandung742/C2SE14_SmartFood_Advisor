@@ -70,9 +70,9 @@ const Footer = () => {
             <div className="col">
               <h5>Sản phẩm</h5>
               <ul>
-                <li><Link to="#">Sữa</Link></li>
-                <li><Link to="#">Ngũ cốc</Link></li>
-                <li><Link to="#">Yến sào</Link></li>
+                <li><Link to="#">Vitamin và khoáng chất</Link></li>
+                <li><Link to="#">Sữa dinh dưỡng</Link></li>
+                <li><Link to="#">Ngũ cốc & Yến mạch</Link></li>
               </ul>
             </div>
 

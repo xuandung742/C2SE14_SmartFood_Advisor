@@ -144,7 +144,7 @@ const ProductModal = (props) => {
 
                         <span className="badge bg-success">CÒN HÀNG</span>
 
-                        <p className='mt-3'>Rs: {props?.data?.description}</p>
+                        <p className='mt-3'>Mô tả: {props?.data?.description}</p>
 
 
 
@@ -208,7 +208,7 @@ const ProductModal = (props) => {
 
                             <Button className='btn-blue bg-red btn-lg btn-big btn-round ml-3' onClick={() => addtoCart()}><IoCartSharp />
                                 {
-                                    context.addingInCart === true ? "..." : "Đã thêm vào giỏ hàng"
+                                    context.addingInCart === true ? "..." : "  Thêm vào giỏ hàng"
                                 }
                             </Button>
                         </div>
