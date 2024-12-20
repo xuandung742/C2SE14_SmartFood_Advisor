@@ -279,7 +279,7 @@ const MyAccount = () => {
   const changePassword = (e) => {
     e.preventDefault();
     formdata.append("password", fields.password);
-
+  
     if (
       fields.oldPassword !== "" &&
       fields.password !== "" &&
@@ -289,11 +289,11 @@ const MyAccount = () => {
         context.setAlertBox({
           open: true,
           error: true,
-          msg: "Mật khẩu không khớp.",
+          msg: "Mật khẩu và mật khẩu xác nhận không khớp",
         });
       } else {
         const user = JSON.parse(localStorage.getItem("user"));
-
+  
         const data = {
           name: user?.name,
           email: user?.email,
@@ -302,12 +302,22 @@ const MyAccount = () => {
           phone: formFields.phone,
           images: formFields.images,
         };
-
-        editData(`/api/user/changePassword/${user.userId}`, data).then(
-          (res) => {
-          
-          }
-        );
+  
+        editData(`/api/user/changePassword/${user.userId}`, data)
+          .then((res) => {
+            context.setAlertBox({
+              open: true,
+              error: false,
+              msg: "Mật khẩu đã thay đổi thành công!",
+            });
+          })
+          .catch((err) => {
+            context.setAlertBox({
+              open: true,
+              error: true,
+              msg: "Mật khẩu hiện tại không đúng",
+            });
+          });
       }
     } else {
       context.setAlertBox({
@@ -318,6 +328,7 @@ const MyAccount = () => {
       return false;
     }
   };
+  
 
   return (
     <section className="section myAccountPage">

@@ -86,12 +86,12 @@ router.post(`/signup`, async (req, res) => {
         const existingUserByPh = await User.findOne({ phone: phone });
 
         if (existingUser) {
-            res.json({status:'FAILED', msg: "Email này đã được sử dụng!" })
+            res.json({status:'FAILED', msg: "User already exist with this email!" })
             return;
         }
 
         if (existingUserByPh) {
-            res.json({status:'FAILED', msg: "Số điện thoại này đã được sử dụng!" })
+            res.json({status:'FAILED', msg: "User already exist with this phone number!" })
             return;
         }
 
@@ -110,12 +110,12 @@ router.post(`/signup`, async (req, res) => {
         res.status(200).json({
             user:result,
             token:token,
-            msg:"Đăng ký tài khoản thành công!"
+            msg:"User Register Successfully"
         })
 
     } catch (error) {
         console.log(error);
-        res.json({status:'FAILED', msg:"Lỗi"});
+        res.json({status:'FAILED', msg:"something went wrong"});
         return;
     }
 })
@@ -128,14 +128,14 @@ router.post(`/signin`, async (req, res) => {
 
         const existingUser = await User.findOne({ email: email });
         if(!existingUser){
-            res.status(404).json({error:true, msg:"Không tìm thấy người dùng!"})
+            res.status(404).json({error:true, msg:"User not found!"})
             return;
         }
 
         const matchPassword = await bcrypt.compare(password, existingUser.password);
 
         if(!matchPassword){
-            return res.status(400).json({error:true,msg:"Thông tin đăng nhập không hợp lệ"})
+            return res.status(400).json({error:true,msg:"Invailid credentials"})
         }
 
         const token = jwt.sign({email:existingUser.email, id: existingUser._id}, process.env.JSON_WEB_TOKEN_SECRET_KEY);
@@ -144,63 +144,106 @@ router.post(`/signin`, async (req, res) => {
        return res.status(200).send({
             user:existingUser,
             token:token,
-            msg:"Đăng nhập thành công!"
+            msg:"user Authenticated"
         })
 
     }catch (error) {
-        res.status(500).json({error:true,msg:"Lỗi"});
+        res.status(500).json({error:true,msg:"something went wrong"});
         return;
     }
 
 })
 
-router.put(`/changePassword/:id`, async (req, res) => {
+// router.put(`/changePassword/:id`, async (req, res) => {
    
-    const { name, phone, email, password, newPass, images } = req.body;
+//     const { name, phone, email, password, newPass, images } = req.body;
 
-   // console.log(req.body)
+//    // console.log(req.body)
 
-    const existingUser = await User.findOne({ email: email });
-    if(!existingUser){
-        res.status(404).json({error:true, msg:"Không tìm thấy người dùng!"})
-    }
+//     const existingUser = await User.findOne({ email: email });
+//     if(!existingUser){
+//         res.status(404).json({error:true, msg:"User not found!"})
+//     }
 
-    const matchPassword = await bcrypt.compare(password, existingUser.password);
+//     const matchPassword = await bcrypt.compare(password, existingUser.password);
 
-    if(!matchPassword){
-        res.status(404).json({error:true,msg:"Mật khẩu hiện tại không đúng!"})
-    }else{
+//     if(!matchPassword){
+//         res.status(404).json({error:true,msg:"current password wrong"})
+//     }else{
 
-        let newPassword
+//         let newPassword
 
-        if(newPass) {
-            newPassword = bcrypt.hashSync(newPass, 10)
-        } else {
-            newPassword = existingUser.passwordHash;
-        }
+//         if(newPass) {
+//             newPassword = bcrypt.hashSync(newPass, 10)
+//         } else {
+//             newPassword = existingUser.passwordHash;
+//         }
     
         
+//         const user = await User.findByIdAndUpdate(
+//             req.params.id,
+//             {
+//                 name:name,
+//                 phone:phone,
+//                 email:email,
+//                 password:newPassword,
+//                 images: images,
+//             },
+//             { new: true}
+//         )
+    
+//         if(!user)
+//         return res.status(400).json({error:true,msg:'The user cannot be Updated!'})
+    
+//         res.send(user);
+//     }
+
+
+
+// })
+router.put(`/changePassword/:id`, async (req, res) => {
+    const { name, phone, email, password, newPass, images } = req.body;
+
+    // Tìm người dùng trong cơ sở dữ liệu bằng email
+    const existingUser = await User.findOne({ email: email });
+    
+    if (!existingUser) {
+        return res.status(404).json({ error: true, msg: "User not found!" });
+    }
+
+    // Kiểm tra xem mật khẩu cũ có khớp không
+    const matchPassword = await bcrypt.compare(password, existingUser.password);
+    if (!matchPassword) {
+        // Nếu mật khẩu cũ không đúng, trả về lỗi
+        return res.status(400).json({ error: true, msg: "Current password is incorrect" });
+    }
+
+    // Nếu mật khẩu cũ đúng, tiến hành cập nhật mật khẩu mới
+    let newPassword = newPass ? bcrypt.hashSync(newPass, 10) : existingUser.password;
+
+    try {
         const user = await User.findByIdAndUpdate(
             req.params.id,
             {
-                name:name,
-                phone:phone,
-                email:email,
-                password:newPassword,
+                name: name,
+                phone: phone,
+                email: email,
+                password: newPassword,
                 images: images,
             },
-            { new: true}
-        )
-    
-        if(!user)
-        return res.status(400).json({error:true,msg:'Không thể cập nhật thông tin người dùng!'})
-    
-        res.send(user);
+            { new: true }
+        );
+
+        if (!user) {
+            return res.status(400).json({ error: true, msg: 'User cannot be updated!' });
+        }
+
+        res.status(200).send({ msg: "Password changed successfully", user });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: true, msg: "Something went wrong while updating the password" });
     }
-
-
-
-})
+});
 
 
 
@@ -217,7 +260,7 @@ router.get('/:id', async(req,res)=>{
     const user = await User.findById(req.params.id);
 
     if(!user) {
-        res.status(500).json({message: 'Không tìm thấy người dùng với ID đã cho'})
+        res.status(500).json({message: 'The user with the given ID was not found.'})
     } else{
         res.status(200).send(user);
     }
@@ -228,9 +271,9 @@ router.get('/:id', async(req,res)=>{
 router.delete('/:id', (req, res)=>{
     User.findByIdAndDelete(req.params.id).then(user =>{
         if(user) {
-            return res.status(200).json({success: true, message: 'Người dùng đã được xóa!'})
+            return res.status(200).json({success: true, message: 'the user is deleted!'})
         } else {
-            return res.status(404).json({success: false , message: "Không tìm thấy người dùng!"})
+            return res.status(404).json({success: false , message: "user not found!"})
         }
     }).catch(err=>{
        return res.status(500).json({success: false, error: err}) 
@@ -275,7 +318,7 @@ router.post(`/authWithGoogle`, async (req, res) => {
             return res.status(200).send({
                  user:result,
                  token:token,
-                 msg:"Đăng nhập thành công!"
+                 msg:"User Login Successfully!"
              })
     
         }
@@ -287,7 +330,7 @@ router.post(`/authWithGoogle`, async (req, res) => {
             return res.status(200).send({
                  user:existingUser,
                  token:token,
-                 msg:"Đăng nhập thành công!"
+                 msg:"User Login Successfully!"
              })
         }
       
@@ -322,7 +365,7 @@ router.put('/:id',async (req, res)=> {
     )
 
     if(!user)
-    return res.status(400).send('Không thể cập nhật thông tin người dùng!')
+    return res.status(400).send('the user cannot be Updated!')
 
     res.send(user);
 })

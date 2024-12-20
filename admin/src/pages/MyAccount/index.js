@@ -115,7 +115,7 @@ const MyAccount = () => {
       });
     });
 
-    
+
   }, []);
 
   const changeInput = (e) => {
@@ -132,7 +132,7 @@ const MyAccount = () => {
     }));
   };
 
-   let img_arr = [];
+  let img_arr = [];
   let uniqueArray = [];
   let selectedImages = [];
 
@@ -259,7 +259,7 @@ const MyAccount = () => {
   const changePassword = (e) => {
     e.preventDefault();
     formdata.append("password", fields.password);
-
+  
     if (
       fields.oldPassword !== "" &&
       fields.password !== "" &&
@@ -269,11 +269,11 @@ const MyAccount = () => {
         context.setAlertBox({
           open: true,
           error: true,
-          msg: "Password and confirm password not match",
+          msg: "Mật khẩu và mật khẩu xác nhận không khớp",
         });
       } else {
         const user = JSON.parse(localStorage.getItem("user"));
-
+  
         const data = {
           name: user?.name,
           email: user?.email,
@@ -282,183 +282,193 @@ const MyAccount = () => {
           phone: formFields.phone,
           images: formFields.images,
         };
-
-        editData(`/api/user/changePassword/${user.userId}`, data).then(
-          (res) => {
-          
-          }
-        );
+  
+        editData(`/api/user/changePassword/${user.userId}`, data)
+          .then((res) => {
+            context.setAlertBox({
+              open: true,
+              error: false,
+              msg: "Mật khẩu đã thay đổi thành công!",
+            });
+          })
+          .catch((err) => {
+            context.setAlertBox({
+              open: true,
+              error: true,
+              msg: "Mật khẩu hiện tại không đúng",
+            });
+          });
       }
     } else {
       context.setAlertBox({
         open: true,
         error: true,
-        msg: "Please fill all the details",
+        msg: "Vui lòng điền đầy đủ thông tin",
       });
       return false;
     }
   };
-
+  
   return (
     <section className="section myAccountPage right-content w-100">
       <div className="card shadow border-0 w-100 flex-row p-4 align-items-center">
-          <h5 className="mb-0">My Account</h5>
-        </div>
+        <h5 className="mb-0">My Account</h5>
+      </div>
 
-        <Box sx={{ width: "100%" }} className="myAccBox card border-0 pl-3 pr-3">
-          <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-            <Tabs
-              value={value}
-              onChange={handleChange}
-              aria-label="basic tabs example"
-            >
-              <Tab label="Edit Profile" {...a11yProps(0)} />
-              <Tab label="Change Password" {...a11yProps(1)} />
-            </Tabs>
-          </Box>
-          <CustomTabPanel value={value} index={0}>
-            <form onSubmit={edituser}>
-              <div className="row">
-                <div className="col-md-4">
-                  <div className="userImage d-flex align-items-center justify-content-center">
-                    {uploading === true ? (
-                      <CircularProgress />
-                    ) : (
-                      <>
-                        {previews?.length !== 0 ? (
-                          previews?.map((img, index) => {
-                            return <img src={img} key={index} />;
-                          })
-                        ) : (
-                          <img src={NoUserImg} />
-                        )}
-                        <div className="overlay d-flex align-items-center justify-content-center">
-                          <IoMdCloudUpload />
-                          <input
-                            type="file"
-                            multiple
-                            onChange={(e) =>
-                              onChangeFile(e, "/api/user/upload")
-                            }
-                            name="images"
-                          />
-                        </div>
-                      </>
-                    )}
-                  </div>
-                </div>
-
-                <div className="col-md-8">
-                  <div className="row">
-                    <div className="col-md-6">
-                      <div className="form-group">
-                        <TextField
-                          label="Name"
-                          variant="outlined"
-                          className="w-100"
-                          name="name"
-                          onChange={changeInput}
-                          value={formFields.name}
-                        />
-                      </div>
-                    </div>
-
-                    <div className="col-md-6">
-                      <div className="form-group">
-                        <TextField
-                          label="Email"
-                          disabled
-                          variant="outlined"
-                          className="w-100"
-                          name="email"
-                          onChange={changeInput}
-                          value={formFields.email}
-                        />
-                      </div>
-                    </div>
-
-                    <div className="col-md-6">
-                      <div className="form-group">
-                        <TextField
-                          label="Phone"
-                          variant="outlined"
-                          className="w-100"
-                          name="phone"
-                          onChange={changeInput}
-                          value={formFields.phone}
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="form-group">
-                    <Button
-                      type="submit"
-                      className="btn-blue btn-lg btn-big"
-                    >
-                      {isLoading === true ? <CircularProgress /> : "Save"}
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </form>
-          </CustomTabPanel>
-          <CustomTabPanel value={value} index={1}>
-            <form onSubmit={changePassword}>
-              <div className="row">
-                <div className="col-md-12">
-                  <div className="row">
-                    <div className="col-md-4">
-                      <div className="form-group">
-                        <TextField
-                          label="Old Password"
-                          variant="outlined"
-                          className="w-100"
-                          name="oldPassword"
-                          onChange={changeInput2}
-                        />
-                      </div>
-                    </div>
-
-                    <div className="col-md-4">
-                      <div className="form-group">
-                        <TextField
-                          label="New password"
-                          variant="outlined"
-                          className="w-100"
-                          name="password"
-                          onChange={changeInput2}
-                        />
-                      </div>
-                    </div>
-
-                    <div className="col-md-4">
-                      <div className="form-group">
-                        <TextField
-                          label="Confirm Password"
-                          variant="outlined"
-                          className="w-100"
-                          name="confirmPassword"
-                          onChange={changeInput2}
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="form-group">
-                    <Button
-                      type="submit"
-                      className="btn-blue bg-red btn-lg btn-big"
-                    >
-                      {" "}
-                      Save
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </form>
-          </CustomTabPanel>
+      <Box sx={{ width: "100%" }} className="myAccBox card border-0 pl-3 pr-3">
+        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            aria-label="basic tabs example"
+          >
+            <Tab label="Edit Profile" {...a11yProps(0)} />
+            <Tab label="Change Password" {...a11yProps(1)} />
+          </Tabs>
         </Box>
+        <CustomTabPanel value={value} index={0}>
+          <form onSubmit={edituser}>
+            <div className="row">
+              <div className="col-md-4">
+                <div className="userImage d-flex align-items-center justify-content-center">
+                  {uploading === true ? (
+                    <CircularProgress />
+                  ) : (
+                    <>
+                      {previews?.length !== 0 ? (
+                        previews?.map((img, index) => {
+                          return <img src={img} key={index} />;
+                        })
+                      ) : (
+                        <img src={NoUserImg} />
+                      )}
+                      <div className="overlay d-flex align-items-center justify-content-center">
+                        <IoMdCloudUpload />
+                        <input
+                          type="file"
+                          multiple
+                          onChange={(e) =>
+                            onChangeFile(e, "/api/user/upload")
+                          }
+                          name="images"
+                        />
+                      </div>
+                    </>
+                  )}
+                </div>
+              </div>
+
+              <div className="col-md-8">
+                <div className="row">
+                  <div className="col-md-6">
+                    <div className="form-group">
+                      <TextField
+                        label="Name"
+                        variant="outlined"
+                        className="w-100"
+                        name="name"
+                        onChange={changeInput}
+                        value={formFields.name}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="col-md-6">
+                    <div className="form-group">
+                      <TextField
+                        label="Email"
+                        disabled
+                        variant="outlined"
+                        className="w-100"
+                        name="email"
+                        onChange={changeInput}
+                        value={formFields.email}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="col-md-6">
+                    <div className="form-group">
+                      <TextField
+                        label="Phone"
+                        variant="outlined"
+                        className="w-100"
+                        name="phone"
+                        onChange={changeInput}
+                        value={formFields.phone}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="form-group">
+                  <Button
+                    type="submit"
+                    className="btn-blue btn-lg btn-big"
+                  >
+                    {isLoading === true ? <CircularProgress /> : "Save"}
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </CustomTabPanel>
+        <CustomTabPanel value={value} index={1}>
+          <form onSubmit={changePassword}>
+            <div className="row">
+              <div className="col-md-12">
+                <div className="row">
+                  <div className="col-md-4">
+                    <div className="form-group">
+                      <TextField
+                        label="Old Password"
+                        variant="outlined"
+                        className="w-100"
+                        name="oldPassword"
+                        onChange={changeInput2}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="col-md-4">
+                    <div className="form-group">
+                      <TextField
+                        label="New password"
+                        variant="outlined"
+                        className="w-100"
+                        name="password"
+                        onChange={changeInput2}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="col-md-4">
+                    <div className="form-group">
+                      <TextField
+                        label="Confirm Password"
+                        variant="outlined"
+                        className="w-100"
+                        name="confirmPassword"
+                        onChange={changeInput2}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="form-group">
+                  <Button
+                    type="submit"
+                    className="btn-blue bg-red btn-lg btn-big"
+                  >
+                    {" "}
+                    Save
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </CustomTabPanel>
+      </Box>
     </section>
   );
 };
